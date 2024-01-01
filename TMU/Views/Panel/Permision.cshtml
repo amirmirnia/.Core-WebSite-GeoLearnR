@@ -1,0 +1,265 @@
+﻿@model Data.TMU.User.Role
+@inject Core.TMU.Service.ITMUService.IUser user
+@inject Core.TMU.Service.ITMUService.IPermision _Permision
+
+@{
+    ViewData["Title"] = "تعریف و تغییر نقشهای پرسنلی";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var role = ViewData["Role"] as List<Data.TMU.User.Role>;
+    var Permision = ViewData["Permision"] as List<Data.TMU.Permissions.permission>;
+    var permisionselect = ViewData["Permisionselect"] as List<int>;
+    var RoleSelect = ViewBag.RoleSelect as Data.TMU.User.Role;
+}
+
+
+
+
+
+<main class="ContentPanel">
+
+    <partial name="panelPartial" />
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>لیست نقش ها</h2>
+            </header>
+            <div class="linner">
+                <p class="text-muted">با ایجاد تعیین سطح دسترسی می توانید کاربران را محدود کنید.</p>
+                <form class="needs-validation" asp-action="permision" method="post" id="form">
+                    <div>
+                        <div>
+                            @{
+                                int j = 0;
+                                foreach (var item in role)
+                                {
+                                    
+                                            <input type="radio" class="custom-control-input" onclick="submitchecked()" value="@item.RoleId" id="customControlValidation@(j)" name="radiostackedRoleid" @(item.RoleId==ViewBag.roleid?"checked":"")>
+                                            <label class="custom-control-label" for="customControlValidation@(j)">@item.RoleTitle</label>
+                          
+                                    j++;
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="content">
+            <header>
+                <h2>ایجاد و ویرایش نقش و سطح</h2>
+            </header>
+            <div class="linner">
+                <form asp-action="permision" method="post">
+                    <div>
+                        <label> نام نقش</label>
+                        <input type="text" class="form-control" asp-for="RoleTitle">
+                        <label> سطح</label>
+                        <input type="number" min="1" max="9" class="form-control" asp-for="Level">
+
+                        @{
+                            if (RoleSelect != null)
+                            {
+                                //<span asp-validation-for="RoleTitle"></span>
+                                <input type="hidden" asp-for="RoleId" value="@RoleSelect.RoleId" />
+                                <input type="hidden" asp-for="IsDelete" value="@RoleSelect.IsDelete" />
+
+                            }
+                        }
+                        <span asp-validation-for="RoleTitle"></span>
+                        @*<div class="valid-feedback"> شروع کنید </div>*@
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom01">لیست سطح ها</label>
+                        @{
+                            int i = 0;
+                            foreach (var item in Permision)
+                            {
+                                if (permisionselect != null)
+                                {
+                                    <div class=" custom-checkbox mb-3">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" name="SelectListItem" id="@i" value="@item.PermissionId" checked="@(permisionselect.Contains(item.PermissionId))">
+                                            <label class="custom-control-label" for="@i">@item.PermissionTitel</label>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class=" custom-checkbox mb-3">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" name="SelectListItem" id="@i" value="@item.PermissionId">
+                                            <label class="custom-control-label" for="@i">@item.PermissionTitel</label>
+                                        </div>
+                                    </div>
+                                }
+                                i++;
+
+                            }
+                        }
+                        @{
+                            if (RoleSelect != null)
+                            {
+                                if (_Permision.GetminmaxLevel().Item1 != RoleSelect.Level && _Permision.GetminmaxLevel().Item2 != RoleSelect.Level)
+                                {
+                                    if (_Permision.IsTrueFinalaproval() != true || _Permision.GetFinalRole().Level == RoleSelect.Level)
+                                    {
+                                        if (ViewBag.IsPermissionPrint != true)
+                                        {
+
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" value="True" name="final" id="final" checked="@(ViewBag.Isfinal == true)">
+                                                        <label class="custom-control-label" for="final">تایید کننده دستور کار(ثبت شماره اندیکاتور) -سطح 2</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>تایید کننده دستور کار(ثبت شماره اندیکاتور) -سطح 2 در اتوماسیون برای نقشی ثبت شده است</p>
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                        @{
+                            if (RoleSelect != null)
+                            {
+                                var p = _Permision.GetminmaxLevel().Item1;
+                                var t = _Permision.GetminmaxLevel().Item2;
+                                if (_Permision.GetminmaxLevel().Item1 != RoleSelect.Level && _Permision.GetminmaxLevel().Item2 != RoleSelect.Level)
+                                {
+                                    if (_Permision.IsTruePermitionPrint() != true || _Permision.GetPermitionPrintRole().Level == RoleSelect.Level)
+                                    {
+                                        if (ViewBag.Isfinal != true)
+                                        {
+
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" value="True" name="PPrint" id="PPrint" checked="@(ViewBag.IsPermissionPrint == true)">
+                                                        <label class="custom-control-label" for="PPrint">تایید کننده سطج 1؟</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>تایید کننده سطح 1 در اتوماسیون برای نقشی ثبت شده است</p>
+                                    }
+                                }
+                            }
+
+                        }
+                        @{
+                            if (RoleSelect != null)
+                            {
+
+                                if (_Permision.Isendprosecc() != true || _Permision.GetPermitionEndprosecc().Level == RoleSelect.Level)
+                                {
+                                //if (ViewBag.EndProcess != true)
+                                //{
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" value="True" name="EndP" id="EndP" checked="@(ViewBag.EndProcess == true)">
+                                                <label class="custom-control-label" for="EndP">انتها چرخه؟</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    //}
+
+                                }
+                                else
+                                {
+                                    <p>اخرین نفر در  اتوماسیون برای نقشی ثبت شده است</p>
+                                }
+
+                            }
+
+                        }
+                        @{
+                            if (RoleSelect != null)
+                            {
+
+
+                                if (_Permision.Issignuchure() != true || _Permision.Getsignuchure().Level == RoleSelect.Level)
+                                {
+                                //if (ViewBag.Signuchure != true)
+                                //{
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" value="True" name="Signuchure" id="Signuchure" checked="@(ViewBag.Signuchure == true)">
+                                                <label class="custom-control-label" for="Signuchure">امضا کننده؟</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    //}
+                                }
+                                else
+                                {
+                                    <p>امضا کننده در  اتوماسیون برای نقشی ثبت شده است</p>
+                                }
+
+                            }
+
+                        }
+
+                    </div>
+
+
+                    <div class="form-row m-2">
+                        <div class="col-md-6">
+
+                            @{
+                                if (RoleSelect != null)
+                                {
+                                    if (user.IsExistPost(RoleSelect.RoleId) != true)
+                                    {
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" value="True" name="DeleteRole" id="customPass">
+                                            <label class="custom-control-label" for="customPass">آیا می خواهید حذف کنید؟</label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <p>جهت حذف نقش ابتدا افرادی که نقش مورد نظر را دارند باید حذف شوند</p>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div>
+                            <button class="btn btngray" type="submit">تایید تغییرات</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+<script>
+     function submitchecked() {
+        $("#form").submit();
+
+    }
+
+</script>
+
+

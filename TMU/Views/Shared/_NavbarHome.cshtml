@@ -1,0 +1,67 @@
+﻿@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.INavbar _Nav
+@inject Core.TMU.Service.ITMUService.INews _news
+@using Core.TMU.Convertor
+@{
+    var listnav = _Nav.GetAllNavbar(1, null, 50, "خبری");
+}
+@*<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 text-text-white rounded" href="/MoreNews">خبر</a></li>
+    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/Search">جنگل تحقیقاتی</a></li>
+    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/MoreGallery">آلبوم</a></li>*@
+@{
+    foreach (var item in listnav.ListNavbar)
+    {
+        if (item.ParentId == 0)
+        {
+            if (_Nav.IsParent(item.Id))
+            {
+
+                <li>
+                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>@item.TitelNav
+                    <ul>
+                        @{
+                            foreach (var item2 in _Nav.GetSubNavbar(item.Id))
+                            {
+
+                                if (_Nav.GetSubNavbar(item2.Id).Count != 0)
+                                {
+                                    <li>
+                                        <i class="fa  fa-angle-left" aria-hidden="true"></i><a href="#">
+                                            @item2.TitelNav
+
+                                            <ul href="@item2.linkAdres" title="@item2.TitelNav">
+                                                @foreach (var item3 in _Nav.GetSubNavbar(item2.Id))
+                                                {
+                                                    <li><a href="@item3.linkAdres" title="@item3.TitelNav"><i class="fa fa-angle-left" aria-hidden="true"></i>@item3.TitelNav</a></li>
+                                                }
+
+                                            </ul>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a href="@item2.linkAdres" title="@item2.TitelNav"><i class="fa fa-angle-left" aria-hidden="true"></i>@item2.TitelNav</a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+
+            }
+            else
+            {
+                <li><a href="@item.linkAdres" title="@item.TitelNav"><i class="fa fa-angle-left" aria-hidden="true"></i>@item.TitelNav</a></li>
+            }
+        }
+
+    }
+}
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/panel">پنل</a></li>
+
+    }
+}
+

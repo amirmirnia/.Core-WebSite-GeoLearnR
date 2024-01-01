@@ -1,0 +1,91 @@
+﻿body {
+    margin: 0;
+    direction: ltr;
+    display: flex;
+    flex-direction: row-reverse;
+    background: url(../../Img/More/article-pattern.png);
+    align-items: center;
+    justify-content: center;
+}
+.rejister{
+    direction:rtl;
+}
+.bodyrejister {
+    text-align: center;
+    box-shadow: 3px -1px 20px 1px #d9d9d9;
+    padding: 0.5em 6em;
+    margin: 1em;
+}
+.rejister .bodyrejister input[type=text], .rejister .bodyrejister input[type=email], .rejister .bodyrejister input[type=password] {
+    padding: 1em;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+    border: 0px solid;
+    font-size: large;
+    background-color: #dfdbdb4f;
+    direction: rtl;
+}
+
+    .hedertitel .innputTitelcourse input[type=text]:focus-visible {
+        outline: 0;
+    }
+
+.hedertitel .innputTitelcourse input[type=email]:focus-visible {
+    outline: 0;
+}
+
+
+.hedertitel .innputTitelcourse input[type=password]:focus-visible {
+    outline: 0;
+}
+.rejister .bodyrejister .formcontrol {
+    display: flex;
+    align-items: center;
+    margin: 2em;
+}
+    .rejister .bodyrejister .formcontrol label {
+        margin: 0 0.5em;
+        font-size: larger;
+        padding: 1em;
+        display: flex;
+        flex-direction: row-reverse;
+        position: relative;
+        border: 0px solid;
+        font-size: large;
+        background-color: #dfdbdb4f;
+        direction: rtl;
+        border-right: 3px solid #00c4ff;
+    }
+.formcontrolNotification {
+    display: flex;
+    align-items: center;
+    margin: 2em;
+    flex-direction: column;
+    font-size: large;
+    background-color: #f5f4f4;
+    color: #282828;
+
+}
+.bodyrejister img{
+    width:17em;
+}
+ input[type=submit] {
+    font-size: x-large;
+    border: 0;
+    padding: 1em;
+    background-color: aliceblue;
+    width: -webkit-fill-available;
+    margin: 1em;
+    cursor: pointer;
+}
+    input[type=submit]:hover {
+        font-size: x-large;
+        border: 0;
+        padding: 1em;
+        background-color: #c7e1f7;
+        width: -webkit-fill-available;
+        margin: 1em;
+        cursor: pointer;
+    }

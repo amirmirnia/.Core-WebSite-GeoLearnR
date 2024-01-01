@@ -1,0 +1,85 @@
+﻿@using System.Text.Encodings.Web;
+@inject Core.TMU.Service.ITMUService.IUser _user
+
+@{
+    ViewData["Title"] = "GeoLearnR";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    var course = ViewBag.course as Data.TMU.Model.Course.ListCourseViewModel;
+    var News = ViewBag.News as Data.TMU.Model.News.ListNewsViewModel;
+}
+
+
+<div class="hedertitel">
+    <h2>آخرین دوره ها </h2>
+    <a href="/Allcourse"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>مشاهده همه دوره ها</a>
+</div>
+<section class="course" id="course">
+    @{
+        foreach (var item in course.Listcourse)
+        {
+            <a href="/Course/@item.Id/@UrlEncoder.Default.Encode(item.name.Replace(" ", "-"))" title="@item.Titel">
+                <div class="item">
+                    <img src="~/Img/course/thum/@item.img" alt="@item.Titel" />
+                    <div class="ditale">
+                        <h4>@item.name</h4>
+                        <a href="#"><i class="fa fa-user" aria-hidden="true"></i>@(_user.FindUser(item.author).FullName) </a>
+                        <div class="info">
+                            @{
+                                if (item.Lock == false)
+                                {
+                                    <span id="mony">رایگان</span>
+                                }
+                                else
+                                {
+                                    <span id="mony">@((float.Parse(item.price)).ToString("N0"))</span>
+                                }
+                            }
+
+                            @{
+                                var time = item.Time + ":" + item.minet + ":" + item.secend;
+                            }
+                            <span id="clock"><i class="fa fa-clock-o" aria-hidden="true"></i>@time</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+
+
+
+
+</section>
+
+
+<div class="hedertitel">
+    <h2>آخرین مقاله ها </h2>
+    <a href="/MoreNews"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>مشاهده همه مقاله ها</a>
+</div>
+<section class="course" id="course">
+    @{
+        foreach (var item in News.ListNews)
+        {
+            <a href="/news/@item.IdNews/@UrlEncoder.Default.Encode(item.TitelNews.Replace(" ", "-"))" title="@item.TitelNews">
+                <div class="item">
+                    <img src="~/Img/News/thum/@item.image" alt="@item.TitelNews" />
+                    <div class="ditale">
+                        <h4>@item.TitelNews</h4>
+                        <p >@item.subjectNews</p>
+                        <div class="info">
+                         <span id="mony">  <i class="fa fa-user" aria-hidden="true"></i>@item.author</span>
+                          
+
+                            <span id="clock"><i class="fa fa-eye" aria-hidden="true"></i>@item.CountView</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+
+
+
+
+</section>

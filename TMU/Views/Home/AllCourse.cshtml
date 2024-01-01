@@ -1,0 +1,140 @@
+﻿@using System.Text.Encodings.Web;
+@inject Core.TMU.Service.ITMUService.IUser _user
+
+@{
+    ViewData["Title"] = "همه دوره ها";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    var course = ViewBag.course as Data.TMU.Model.Course.ListCourseViewModel;
+}
+<div class="hedertitelbredcrum">
+    <div class="bredcrum">
+        <span>خانه</span>
+        <span>دوره ها</span>
+        <span>سی شارپ</span>
+    </div>
+    <h2>تعداد دوره ها(202) </h2>
+</div>
+<form asp-action="AllCourse" method="get" id="form">
+    <input type="hidden" id="monycourse" name="monycourse" value="@ViewBag.monycourse" />
+    <input type="hidden" name="tag" value="@ViewBag.tag" />
+    <div class="hedertitel" id="titelAllcourse">
+        <div class="innputTitelcourse">
+            <input type="text" name="titel" value="@ViewBag.titel" placeholder="دوره مورد نظر را وارد کنید" />
+            <button>
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="selectitem">
+            <select>
+                <option>مرتب سازی بر اساس قیمت</option>
+                <option>مرتب سازی بر اساس تاریخ</option>
+                <option>مرتب سازی بر اساس عنوان</option>
+            </select>
+        </div>
+        <div class="filtermony">
+            <div class="item">
+
+                <input type="submit" onclick="mony()" value="همه" class=@((ViewBag.monycourse==" ")?"active":"") />
+            </div>
+            <div class="item">
+                <input type="submit" onclick="mony(true)" value="خریدنی" class=@((ViewBag.monycourse=="true")?"active":"") />
+            </div>
+            <div class="item">
+                <input type="submit" onclick="mony(false)" value="رایگان" class=@((ViewBag.monycourse=="false")?"active":"") />
+            </div>
+        </div>
+
+
+
+    </div>
+</form>
+
+@{
+    if (ViewBag.titel != null && ViewBag.monycourse != "" && ViewBag.tag!=null)
+    {
+        <div class="hedertitelbredcrum">
+            <div class="bredcrum">
+                <span>فیلتر </span>
+
+                @{
+                    if (ViewBag.titel != null)
+                    {
+                        <span>@ViewBag.titel</span>
+                    }
+                    if (ViewBag.tag != null)
+                    {
+                        <span>@ViewBag.tag</span>
+                    }
+                    if (ViewBag.monycourse == "")
+                    {
+                        <span>همه</span>
+                    }
+                    if (ViewBag.monycourse == "true")
+                    {
+                        <span>خریدنی</span>
+                    }
+                    if (ViewBag.monycourse == "false")
+                    {
+                        <span>رایگان</span>
+                    }
+                }
+
+            </div>
+        </div>
+    }
+
+
+}
+
+
+<section class="course" id="course">
+
+
+    @{
+        foreach (var item in course.Listcourse)
+        {
+            <a href="/Course/@item.Id/@UrlEncoder.Default.Encode(item.name.Replace(" ", "-"))" title="@item.Titel">
+                <div class="item">
+                    <img src="~/Img/course/thum/@item.img" alt="@item.Titel" />
+                    <div class="ditale">
+                        <h4>@item.name</h4>
+                        <a href="#"><i class="fa fa-user" aria-hidden="true"></i>@(_user.FindUser(item.author).FullName) </a>
+                        <div class="info">
+                            @{
+                                if (item.Lock == false)
+                                {
+                                    <span id="mony">رایگان</span>
+                                }
+                                else
+                                {
+                                    <span id="mony">@((float.Parse(item.price)).ToString("N0"))</span>
+                                }
+                            }
+
+                            @{
+                                var time = item.Time + ":" + item.minet + ":" + item.secend;
+                            }
+                            <span id="clock"><i class="fa fa-clock-o" aria-hidden="true"></i>@time</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+
+
+
+</section>
+<script>
+    function countpage(pageid)
+    {
+        $("#pageid").val(pageid);
+        $("#form").submit();
+    }
+    function mony(i)
+    {
+        $("#monycourse").val(i);
+        $("#form").submit();
+    }
+</script>

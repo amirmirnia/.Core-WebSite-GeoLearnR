@@ -1,0 +1,17 @@
+﻿@model Tuple<List<Data.TMU.Model.Course.CourseComment>, int>
+
+@{
+    Layout = null;
+}
+
+@{
+    foreach (var item in Model.Item1)
+    {
+        <div>
+            <p>
+            @item.comment
+            </p>
+        </div>
+    }
+}
+

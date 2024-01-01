@@ -1,0 +1,196 @@
+body {
+  
+}
+#print {
+    padding: 2em;
+    color: white;
+    background-color: #a3a1a8;
+    margin: 1em;
+    border: 0px;
+}
+    #print:hover {
+        background-color: aqua;
+        color: black;
+    }
+@media print {
+    .bodypanel #content {
+        border: 1px solid #9b9999;
+        padding: 1em;
+    }
+
+    .headerFactor {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+    }
+
+        .headerFactor img {
+            width: 9em;
+        }
+
+    .Date {
+        direction: ltr;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+
+
+
+        table #headtable {
+            background-color: #f3f3f3;
+        }
+
+    td, th {
+        border: 1px solid rgb(165 161 161);
+        text-align: left;
+        padding: 8px;
+    }
+
+    .bodytabelfactor {
+        direction: rtl;
+        margin: 0 6em;
+    }
+
+        .bodytabelfactor .final {
+            margin-top: 3em;
+        }
+
+    td {
+        text-align: center !important;
+        color: #454343 !important;
+        border: 1px dashed #d6c9c9;
+    }
+
+    th {
+        text-align: center !important;
+        color: black !important;
+        background-color: #f3f3f3;
+    }
+
+
+    .signuchre {
+        display: flex;
+        justify-content: space-around;
+    }
+
+        .signuchre tr {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            margin: 3em 0 2em 0;
+        }
+
+            .signuchre tr .si {
+                width: 17em;
+                height: 6em;
+            }
+
+            .signuchre tr .si, .namesi {
+                color: #000000 !important;
+                text-align: center;
+                width: max-content;
+                margin-top: 6em;
+                margin-bottom: 4em;
+            }
+
+}
+table img {
+    width: 3em;
+}
+table a{
+    color:black;
+    padding:0.3em;
+    cursor:pointer
+}
+.bodypanel #content {
+    border: 1px solid #9b9999;
+    padding: 1em;
+}
+
+.headerFactor {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+}
+.headerFactor img{
+    width: 9em;
+}
+.Date {
+    direction: ltr;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+
+
+
+    table #headtable {
+        background-color: #f3f3f3;
+    }
+
+    td, th {
+        border: 1px solid rgb(165 161 161);
+        text-align: left;
+        padding: 8px;
+    }
+  .bodytabelfactor{
+    direction: rtl;
+    margin: 0 6em;
+  }
+  .bodytabelfactor .final{
+    margin-top: 3em;
+  }
+td {
+    text-align: center !important;
+    color: #454343 !important;
+    border: 1px dashed #d6c9c9;
+}
+tr.totaltr td:first-child {
+    border: 0px;
+    background-color: white;
+}
+
+tr.totaltr td {
+    background-color: #f4efef;
+}
+th {
+    text-align: center !important;
+    color: black !important;
+    background-color: #f3f3f3;
+}
+
+
+.signuchre {
+    display: flex;
+    justify-content: space-around;
+}
+    .signuchre tr {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        margin: 3em 0 2em 0;
+    }
+        .signuchre tr .si {
+            width: 17em;
+            height: 6em;
+        }
+        .signuchre tr .si, .namesi {
+            color: #000000 !important;
+            text-align: center;
+            width: max-content;
+            margin-top: 6em;
+            margin-bottom: 4em;
+        }

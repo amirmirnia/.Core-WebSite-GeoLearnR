@@ -1,0 +1,119 @@
+﻿@model Data.TMU.Model.Wallet.ChargeWalletViewMode
+@{
+    ViewData["Title"] = "کیف پول";
+ Layout = "~/Views/Shared/_HomeLayout.cshtml";
+ var wlallet = ViewBag.wallet as List<Data.TMU.Model.Wallet.Wallet>;
+}
+
+<main class="ContentPanel">
+
+    <partial name="panelPartial" />
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>شارژحساب</h2>
+            </header>
+            <div class="linner">
+               <form asp-action="ChargeWallet" method="post">
+
+                                <label>شارژ مبلغ</label>
+                                <input asp-for="Amount" type="number" class="form-control" id="inputPassword5">
+                                @Html.ValidationMessageFor(tuple => tuple.Amount)
+
+
+                    <button type="submit" class="btn btnblue">شارژ</button>
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="content">
+            <header>
+                <h2>تراکنش های انجام شده</h2>
+            </header>
+            <div class="linner">
+                 @{
+
+                        @if (wlallet.Count > 0)
+                        {
+                            <div class="cardpanel">
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>مبلغ</th>
+                                            <th>تاریخ</th>
+                                            <th>نوع تراکنش</th>
+                                            <th>شرح</th>
+
+                                        </tr>
+
+
+                                        @{
+                                            int row = 0;
+                                            foreach (var item in wlallet)
+                                            {
+                                                row++;
+                                                <tr>
+                                                    <td>
+                                                        @row
+                                                    </td>
+
+                                                    <td>@item.Amount.ToString("#,0 ریال");</td>
+                                                    <td class="text-muted">@item.DetaTime.ToPeString("dddd, dd, MMMM,yyyy")</td>
+
+                                                    <td>
+                                                        @{
+                                                            if (item.TypeId == 1)
+                                                            {
+                                                                <p>واریز</p>
+                                                            }
+                                                            if (item.TypeId == 2)
+                                                            {
+                                                                <p>برداشت</p>
+                                                            }
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.Description
+                                                    </td>
+
+
+
+                                                </tr>
+
+                                            }
+                                        }
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+                        }
+                    }
+            </div>
+
+        </div>
+
+    </div>
+
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

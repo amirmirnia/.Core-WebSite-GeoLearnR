@@ -1,0 +1,89 @@
+﻿@model Data.TMU.Model.ListUserViewModel
+@inject Core.TMU.Service.ITMUService.IPermision _permision
+
+@{
+    ViewData["Title"] = "کادر جنگل تحقیقاتی دانشگاه تربیت مدرس";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<section id="team" class="pb-5">
+    <div class="container">
+        <h5 class="section-title h1">گروه نظارت</h5>
+        <div class="row">
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="image-flip">
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="~/Img/Userprofile/sarnazer.jpg" alt="غلامرضا علی نیا"></p>
+                                    <p class="card-title">نام:غلامرضا علی نیا</p>
+                                    <p class="card-title">پست سازمانی:سر ناظر حفاظتی</p>
+                                    <p class="card-title">پست الکترونیکی:alinia@yahoo.com</p>
+                                    @* <p class="card-text">This is basic card with image on top, title, description and button.</p>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="image-flip">
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="~/Img/Userprofile/DefultAvatar.jpg" alt="شیخ عباسی"></p>
+                                    <p class="card-title">نام:شیخ عباسی</p>
+                                    <p class="card-title">پست سازمانی: ناظر حفاظتی</p>
+                                    <p class="card-title">پست الکترونیکی:abbasi@yahoo.com</p>
+                                    @* <p class="card-text">This is basic card with image on top, title, description and button.</p>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+        </div>
+        <h5 class="section-title h1">گروه اجرا</h5>
+        <div class="row">
+            <!-- Team member -->
+            @{
+                foreach (var item in Model.Listuser)
+                {
+                    if (item.IsAdmin == false && item.IdCode != "2050640791")
+                    {
+                        if (item.post != "0")
+                        {
+                            <div class="col-xs-12 col-sm-4 col-md-3">
+                                <div class="image-flip">
+                                    <div class="mainflip flip-0">
+                                        <div class="frontside">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <p><img class=" img-fluid" src="~/Img/Userprofile/@item.UserAvatar" alt="@item.FullName"></p>
+                                                    <p class="card-title">نام:@item.FullName</p>
+                                                    <p class="card-title">پست سازمانی:@_permision.GetRoleById(int.Parse(item.post)).RoleTitle</p>
+                                                    <p class="card-title">پست الکترونیکی:@item.Email</p>
+                                                    @* <p class="card-text">This is basic card with image on top, title, description and button.</p>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                }
+            }
+
+            
+            <!-- ./Team member -->
+        </div>
+    </div>
+</section>
+

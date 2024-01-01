@@ -1,0 +1,82 @@
+﻿@model Data.TMU.Model.Image.ImagePageViewModel
+@inject Core.TMU.Service.ITMUService.IUser user
+
+@{
+    ViewData["Title"] = "ثبت عکس در دیتابیس سایت";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<main role="main" class="main-content">
+    <form asp-action="InsertImagePage" method="post" enctype="multipart/form-data">
+        <input asp-for="ImagePage.author" type="hidden" value="@user.Getname(User.Identity.Name)">
+        <input type="hidden" asp-for="ImagePage.DetaPage" value="@DateTime.Now.ToPeString("dddd, dd, MMMM,yyyy")">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label for="simpleinput">عنوان عکس</label>
+                        <input asp-for="ImagePage.Titel" type="text" id="simpleinput" class="form-control">
+                        <span asp-validation-for="ImagePage.Titel"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label for="simpleinput">کلمه کلیدی عکس</label>
+                        <input asp-for="ImagePage.Tags" type="text" id="simpleinput" class="form-control">
+                        <span asp-validation-for="ImagePage.Tags"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label for="example-textarea">توضیحات عکس</label>
+                        <textarea asp-for="ImagePage.Description" class="form-control" id="example-textarea" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <div class="form-group mb-3">
+                            <label for="customFile">فایل عکس را انتخاب کنید</label>
+                            <div class="custom-file">
+                                <input asp-for="files" type="file" multiple class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">انتخاب فایل</label>
+                                <span asp-validation-for="files"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center mb-5">
+                            <div class="avatar avatar-xl w-100">
+                                <img src="~/Img/More/" alt="" id="img">
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button type="submit" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </div>
+                </div> <!-- /.card-body -->
+            </div> <!-- /.card -->
+        </div>
+    </form>
+
+</main>
+
+<script src="~/js/jquery-1.9.1.min.js"></script>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#customFile").change(function () {
+        readURL(this);
+    });
+
+
+</script>
+

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Core.TMU</id>
+    <version>1.0.0</version>
+    <authors>Core.TMU</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Data.TMU" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Aspose.Words" version="23.6.0" exclude="Build,Analyzers" />
+        <dependency id="FreeSpire.Doc" version="10.8.1" exclude="Build,Analyzers" />
+        <dependency id="GroupDocs.Conversion" version="23.5.0" exclude="Build,Analyzers" />
+        <dependency id="GroupDocs.Viewer" version="23.4.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="6.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Office.Interop.Word" version="15.0.4797.1004" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="6.0.0" exclude="Build,Analyzers" />
+        <dependency id="ceTe.DynamicPDF.Converter.NET" version="3.19.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\AHMirnia\Desktop\Dr.Shorabi\Core.TMU\bin\Release\net6.0\Core.TMU.dll" target="lib\net6.0\Core.TMU.dll" />
+  </files>
+</package>

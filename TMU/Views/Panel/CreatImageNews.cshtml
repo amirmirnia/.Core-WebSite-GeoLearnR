@@ -1,0 +1,86 @@
+﻿@model Data.TMU.Model.News.FileNewsViewModel
+@{
+    ViewData["Title"] = " ثبت عکس خبر";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+
+
+<main class="ContentPanel">
+    @*    <form asp-action="ListUser" method="get" id="form">
+
+        <input type="hidden" id="IdActive" name="IdActive" value="none" />
+
+        </form>*@
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>ثبت عکس</h2>
+            </header>
+            <div class="linner">
+                <form asp-action="CreatImageNews" method="post" enctype="multipart/form-data">
+                    <div class="col-12 col-xl-10">
+
+                        <p class="mb-4">فایل عکس را انتخاب کنید.</p>
+                        <div class="form-row">
+                            <div class="custom-file">
+                                <input asp-for="files" type="file" multiple class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">انتخاب فایل</label>
+                                <span asp-validation-for="files"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center mb-5">
+                            <div class="avatar avatar-xl w-100">
+                                <img src="~/Img/More/" alt="" id="img">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button type="submit" class="btngray">ثبت عکس</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+</main>
+
+
+<script src="~/js/jquery-1.9.1.min.js"></script>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#customFile").change(function () {
+        readURL(this);
+    });
+
+
+</script>

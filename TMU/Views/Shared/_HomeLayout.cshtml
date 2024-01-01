@@ -1,0 +1,128 @@
+﻿@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.INews _news
+@using System.Text.Encodings.Web;
+@using Core.TMU.Convertor
+@using Microsoft.AspNetCore.Authorization;
+@{
+        var news = _news.GetAllNews(1, null, null, 6, false);
+    }
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/ico" href="">
+    <title>@ViewData["Title"]</title>
+    
+    @await Html.PartialAsync("_HomeStyle")
+</head>
+
+<body>
+    <div id="hilightbody"></div>
+    <section class="togglenav" id="togglenav">
+        <a href="#" id="barsclose"><i class="fa fa-close"></i></a>
+        <a href="/" title="GeolearnR"><img src="~/Img/More/Loader.png" alt="" srcset=""></a>
+
+        <form asp-action="AllCourse" method="get">
+            <div class="search">
+                <input type="text" name="tag" placeholder="دنبال چی هستی؟" />
+                <input type="submit" value="بگرد">
+            </div>
+        </form>
+
+
+        <div class="menutoggle">
+            <p>آموزش ها</p>
+            <ul>
+                @await Html.PartialAsync("_NavbarHome")
+            </ul>
+
+
+            <p>مقالات اخیر </p>
+            <ul>
+                @{
+                    foreach (var item in news.ListNews)
+                    {
+                        <li><i class="fa fa-check-square-o" aria-hidden="true"></i><a href="/news/@item.IdNews/@UrlEncoder.Default.Encode(item.TitelNews.Replace(" ", "-"))" title="@item.TitelNews">@item.TitelNews</a></li>
+
+                    }
+                }
+
+            </ul>
+        </div>
+    </section>
+    <div id="flex-body">
+        <div class="landing-home">
+
+            <section class="Header">
+                <a href="#" id="bars"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                <nav>
+
+                    <a href="/Allcourse">آخرین دوره ها</a>
+                    <a href="#">مشاوره و رفع اشکال</a>
+                    <a href="#">لینک های مفید</a>
+                    <a href="#">تماس با ما</a>
+
+                </nav>
+                <div id="loginlink">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="/panel"><img src="~/Img/Userprofile/@_user.FindUser(User.Identity.Name).UserAvatar" /> @_user.FindUser(User.Identity.Name).FullName </a>
+                        }
+                        else
+                        {
+                            <a id="login" href="/login"> ورود </a>
+                            <a href="/Register"> عضویت </a>
+                        }
+                    }
+
+                </div>
+
+            </section>
+            <div class="linkin">
+                <a href="#" class="tooltip">
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                    <span>اینستاگرام</span>
+                </a>
+                <a href="#" class="tooltip">
+                    <i class="fa fa-telegram" aria-hidden="true"></i>
+                    <span>تلگرام</span>
+                </a>
+                <a href="#" class="tooltip">
+                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                    <span>واتس آپ</span>
+                </a>
+                <a href="#" class="tooltip">
+                    <i class="fa fa-github-alt" aria-hidden="true"></i>
+                    <span>گیت هاب</span>
+                </a>
+            </div>
+            <div id="typetext">
+                <p id="p1"><span>I</span></p>
+
+                <form asp-action="AllCourse" method="get">
+                    <div>
+                        <input type="submit" value="بگرد">
+                        <input type="text" name="tag" placeholder="دنبال چی هستی؟" />
+
+                    </div>
+                </form>
+                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+
+
+
+
+
+    @await Html.PartialAsync("_HomeScript")
+
+</body>
+
+</html>
+

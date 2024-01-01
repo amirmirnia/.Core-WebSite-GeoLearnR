@@ -1,0 +1,72 @@
+﻿@model Data.TMU.Model.Gallery.FileGalleryViewModel
+
+@{
+    ViewData["Title"] = "ثبت عکس گالری";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<main role="main" class="main-content">
+    <form asp-action="CreatImageGallery" method="post" enctype="multipart/form-data">
+        <div class="col-md-12 mb-4">
+            <div class="card shadow">
+                @* <div class="card-body">
+                    <div class="form-group mb-3">
+                    <label for="simpleinput">عنوان عکس</label>
+                    <input asp-for="TitelFileNews" type="text" id="simpleinput" class="form-control">
+                    <span asp-validation-for="TitelFileNews"></span>
+                    </div>
+                    </div>
+                    <div class="card-body">
+                    <div class="form-group mb-3">
+                    <label for="example-textarea">توضیحت عکس</label>
+                    <textarea asp-for="DescriptionFileNews" class="form-control" id="example-textarea" rows="4"></textarea>
+                    </div>
+                    </div>*@
+                <div class="card-body p-5">
+                    <div class="form-group mb-3">
+                        <div class="form-group mb-3">
+                            <label for="customFile">فایل عکس را انتخاب کنید</label>
+                            <div class="custom-file">
+                                <input asp-for="files" type="file" multiple class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">انتخاب فایل</label>
+                                <span asp-validation-for="files"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-center mb-5">
+                            <div class="avatar avatar-xl w-100">
+                                <img src="~/Img/More/" alt=""  id="img">
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-outline-info"> ثبت عکس</button>
+                        </div>
+                    </div>
+                </div> <!-- /.card-body -->
+            </div> <!-- /.card -->
+        </div>
+    </form>
+
+</main>
+
+<script src="~/js/jquery-1.9.1.min.js"></script>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#customFile").change(function () {
+        readURL(this);
+    });
+
+
+</script>
+

@@ -1,0 +1,70 @@
+﻿@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.IPermision Permision
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor accessor
+
+<div class="PartialMenu">
+    <figure>
+        <img src=@((_user.FindUser(User.Identity.Name).UserAvatar!=null)?"/Img/Userprofile/"+@_user.FindUser(User.Identity.Name).UserAvatar:"/Img/Userprofile/DefultAvatar.jpg") alt="@_user.FindUser(User.Identity.Name).FullName">
+    </figure>
+    <p class="walletShowP">کیف پول:@(_user.BalanceWalletUser(User.Identity.Name).ToString("#,0 تومان"))</p>
+    <a href="/panel">
+        <i class="fa fa-television"></i>
+        <li>میزکار</li>
+    </a>
+    <a href="/panel/Wallet">
+        <i class="fa fa-money"></i>
+        <li>کیف پول</li>
+    </a>
+    <a href="/panel/ListcoursUser">
+        <i class="fa fa-coffee"></i>
+        <li>دوره های من</li>
+    </a>
+
+    @{
+        if (Permision.CheakPermissionAllow(4, _user.FindUser(User.Identity.Name).Id) == true)
+        {
+
+            <a href="/panel/ListUser">
+                <i class="fa fa-group"></i>
+                <li>مدیریت پرسنل</li>
+            </a>
+        }
+        if (Permision.CheakPermissionAllow(4, _user.FindUser(User.Identity.Name).Id) == true)
+        {
+
+            <a href="/panel/permision">
+                <i class="fa fa-eye"></i>
+                <li>تعریف و تغییر نقشهای پرسنلی</li>
+            </a>
+        }
+    }
+
+    @{
+        if (Permision.CheakPermissionAllow(3, _user.FindUser(User.Identity.Name).Id) == true)
+        {
+            <a href="/panel/ListNavbar" class=@((_user.FindUser(User.Identity.Name).post=="0" || _user.FindUser(User.Identity.Name).level==null)?"disabled":"")>
+                <i class="fa fa-list"></i>
+                <li>ثبت منو</li>
+            </a>
+        }
+    }
+    @{
+        if (Permision.CheakPermissionAllow(2, _user.FindUser(User.Identity.Name).Id) == true)
+        {
+            <a href="/panel/ListNews" class=@((_user.FindUser(User.Identity.Name).post=="0" || _user.FindUser(User.Identity.Name).level==null)?"disabled":"")>
+                <i class="fa fa-book"></i>
+                <li>مقالات</li>
+            </a>
+        }
+    }
+
+    @{
+        if (Permision.CheakPermissionAllow(1, _user.FindUser(User.Identity.Name).Id) == true)
+        {
+            <a href="/panel/Listcourse" class=@((_user.FindUser(User.Identity.Name).post=="0" || _user.FindUser(User.Identity.Name).level==null)?"disabled":"")>
+                <i class="fa fa-graduation-cap"></i>
+                <li>دوره ها</li>
+            </a>
+        }
+    }
+</div>

@@ -1,0 +1,86 @@
+﻿@using Data.TMU.Model
+@model registerUser
+@{
+
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/Home/rejister.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>عضویت</title>
+
+<body class="light rtl">
+
+
+
+    <form asp-action="Register" method="post">
+        <div class="rejister">
+
+            <div class="bodyrejister">
+                <input type="hidden" asp-for="IsNormalUser" value="true" />
+                <input type="hidden" asp-for="CaptchaCode" value="s" />
+                @*<div asp-validation-summary="All" class="text-danger">
+
+                    </div> *@
+                <div class="">
+                    <a href="/"><img src="/Img/More/Loader.png" alt="GeoLearnR"></a>
+@*                    <h2 class="my-3">ثبت نام</h2>*@
+                </div>
+
+                <div class="formcontrol">
+                    <label><i class="fa fa-envelope" aria-hidden="true"></i></label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="ایمیل خود را وارد کنید">
+                    @Html.ValidationMessageFor(tuple => tuple.Email)
+                    <p></p>
+                </div>
+                <div class="formcontrol">
+                    <label><i class="fa fa-user" aria-hidden="true"></i></label>
+                    <input asp-for="FullName" type="text" placeholder=" ناو و نام خانوادگی  خود را وارد کنید">
+                    @Html.ValidationMessageFor(tuple => tuple.FullName)
+                </div>
+                <div class="formcontrol">
+                    <label><i class="fa fa-mobile" aria-hidden="true"></i></label>
+                    <input asp-for="Mobile" type="text" placeholder="موبایل خود را وارد کنید">
+                    @Html.ValidationMessageFor(tuple => tuple.Mobile)
+                </div>
+                <div class="formcontrol">
+                    <label><i class="fa fa-id-card" aria-hidden="true"></i></label>
+                    <input asp-for="IdCode" type="text" placeholder="کد ملی خود را وارد کنید">
+                    @Html.ValidationMessageFor(tuple => tuple.IdCode)
+                </div>
+
+                <hr>
+                <div>
+                    <div class="formcontrol">
+                        <label><i class="fa fa-key" aria-hidden="true"></i></label>
+                        <input asp-for="Password" type="password" placeholder="رمز عبور خود را وارد کنید">
+                        @Html.ValidationMessageFor(tuple => tuple.Password)
+                    </div>
+                    <div class="formcontrol">
+
+                        <label><i class="fa fa-key" aria-hidden="true"></i></label>
+                        <input asp-for="RePassword" type="password" placeholder="تکرار رمز عبور خود را وارد کنید">
+                        @Html.ValidationMessageFor(tuple => tuple.RePassword)
+                    </div>
+                    <div class="formcontrolNotification">
+
+                        <p>پسورد امن</p>
+                        <p c> برای داشتن پسورد امن به نکات زیر توجه کنید: </p>
+                        <ul>
+                            <li>حداقل 8 کاراکتر </li>
+                            <li>حداقل یک حروف بزرگ</li>
+                            <li>حداقل یک عدد</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <input type="submit" value="ثبت نام" />
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+
+</body>

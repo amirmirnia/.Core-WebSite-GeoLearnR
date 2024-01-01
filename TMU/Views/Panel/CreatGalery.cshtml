@@ -1,0 +1,63 @@
+﻿@model Data.TMU.Model.Gallery.Gallery
+@inject Core.TMU.Service.ITMUService.IUser user
+
+@{
+    ViewData["Title"] = "ثبت گالری";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<main role="main" class="main-content">
+    <div class="Header-Countainer mt-5">
+        ثبت گالری جدید
+    </div>
+    <div class="container-fluid">
+        <div class="justify-content-center">
+            <form asp-action="CreatGallery" method="post">
+                <div class="col-12">
+                    <input asp-for="author" type="hidden" value="@user.Getname(User.Identity.Name)">
+                    <input type="hidden" asp-for="DateGallery" value="@DateTime.Now">
+                    <hr class="my-4">
+                    <h5 class="mb-2 mt-4">اطلاعات</h5>
+                    <p class="mb-4">اطلاعات خواسته شده را تکمیل نمایید.</p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">عنوان عکس</label>
+                            <input asp-for="Titel" type="text" id="firstname" class="form-control">
+                            <span asp-validation-for="Titel"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">کلمات کلیدی را با - انتخاب کنید</label>
+                            <input asp-for="Tag" type="text" id="lastname" class="form-control">
+                            <span asp-validation-for="Tag"></span>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="card-body">
+                                    <h5 class="card-title">ویرایشگر</h5>
+                                    <p>متن مورد نیاز خود را در ویرایشگر زیر وارد کنید</p>
+                                    <!-- Create the editor container -->
+                                    <textarea asp-for="Description" id="editor" class="form-control" rows="10"></textarea>
+                                    <span asp-validation-for="Description"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-outline-info">ثبت گالری</button>
+                        </div>
+                    </div>
+
+                </div> <!-- .col-12 -->
+            </form>
+        </div> <!-- .row -->
+    </div> <!-- .container-fluid -->
+</main>
+
+

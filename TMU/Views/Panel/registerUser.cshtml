@@ -1,0 +1,63 @@
+﻿@using Data.TMU.Model
+@model registerUser
+@{
+    ViewData["Title"] = "ثبت نام کاربر توسط ادمین";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<main class="ContentPanel">
+
+    <partial name="panelPartial" />
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>ثبت نام</h2>
+            </header>
+            <div class="linner">
+                <form asp-action="registerUser" method="post" class="col-lg-6 col-md-8 col-10 mx-auto">
+                    <input type="hidden" asp-for="CaptchaCode" value="s" />
+                    <div class="form-col">
+
+
+
+
+                        <label for="inputPasswordformcol">ایمیل</label>
+                        <input name="Email" type="email" class="form-control" id="inputEmail4">
+                        @Html.ValidationMessageFor(tuple => tuple.Email)
+
+                        <label for="inputPasswordformcol">نام و نام خانوادگی</label>
+                        <input name="FullName" type="text" id="firstname" class="form-control">
+                        @Html.ValidationMessageFor(tuple => tuple.FullName)
+
+                        <label for="inputPasswordformcol">موبایل</label>
+                        <input name="Mobile" type="text" id="mobile" class="form-control">
+                        @Html.ValidationMessageFor(tuple => tuple.Mobile)
+
+                        <label for="inputPasswordformcol">کدملی</label>
+                        <input name="IdCode" type="text" id="mobile" class="form-control">
+                        @Html.ValidationMessageFor(tuple => tuple.IdCode)
+
+                        <label for="inputPasswordformcol">کلمه عبور</label>
+                        <input name="Password" type="password" class="form-control" id="inputPassword5">
+                        @Html.ValidationMessageFor(tuple => tuple.Password)
+
+                        <label for="inputPasswordformcol">تکرار کلمه عبور</label>
+                        <input name="RePassword" type="password" class="form-control" id="inputPassword6">
+                        @Html.ValidationMessageFor(tuple => tuple.RePassword)
+
+                        <button type="submit" class="btngray">ثبت نام</button>
+
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</main>

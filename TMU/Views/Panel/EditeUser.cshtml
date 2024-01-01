@@ -1,0 +1,91 @@
+﻿@using Data.TMU.Model
+@model registerUser
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<div class="wrapper vh-100">
+
+        <div class="row align-items-center h-100">
+
+
+            <form asp-action="Register" method="post" class="col-lg-6 col-md-8 col-10 mx-auto">
+                @*<div asp-validation-summary="All" class="text-danger">
+
+                </div> *@
+                <div class="mx-auto text-center my-4">
+                    <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+                        <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
+                        <g>
+                        <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
+                        <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />
+                        <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
+                                            </g>
+                                          </svg>
+                    </a>
+                    <h2 class="my-3">ثبت نام</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail4">ایمیل</label>
+                    <input name="Email" type="email" class="form-control" id="inputEmail4">
+                    @Html.ValidationMessageFor(tuple => tuple.Email)
+                    <p></p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="firstname">نام و نام خانوادگی</label>
+                        <input name="FullName"  type="text" id="firstname" class="form-control">
+                        @Html.ValidationMessageFor(tuple => tuple.FullName)
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="mobile">موبایل</label>
+                        <input name="Mobile"  type="text" id="mobile" class="form-control">
+                        @Html.DisplayNameFor(model => model.Mobile)
+                        @Html.ValidationMessageFor(tuple => tuple.Mobile)
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="mobile">کدملی</label>
+                        <input name="IdCode"  type="text" id="mobile" class="form-control">
+                        @Html.DisplayNameFor(model => model.IdCode)
+                        @Html.ValidationMessageFor(tuple => tuple.IdCode)
+                    </div>
+
+                </div>
+                <hr class="my-4">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputPassword5">کلمه عبور</label>
+                            <input name="Password"  type="password" class="form-control" id="inputPassword5">
+                            @Html.ValidationMessageFor(tuple => tuple.Password)
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword6">تکرار کلمه عبور</label>
+                            <input name="RePassword"  type="password" class="form-control" id="inputPassword6">
+                            @Html.ValidationMessageFor(tuple => tuple.RePassword)
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2">Password requirements</p>
+                        <p class="small text-muted mb-2"> To create a new password, you have to meet all of the following requirements: </p>
+                        <ul class="small text-muted pl-4 mb-0">
+                            <li> Minimum 8 character </li>
+                            <li>At least one special character</li>
+                            <li>At least one number</li>
+                            <li>Can’t be the same as a previous password </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                <p class="mt-5 mb-3 text-muted text-center">© 2020</p>
+
+            </form>
+
+        </div>
+
+
+    </div>
+

@@ -1,0 +1,165 @@
+﻿@model Data.TMU.Model.Course.Course
+@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.ICourse _course
+@using Core.TMU.Genarator
+@using Core.TMU.Convertor
+
+@{
+    ViewData["Title"] = @Model.name;
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var VC = ViewBag.videocourse as Data.TMU.Model.Course.ListCourseVideoViewModel;
+}
+<div class="Pagecourse">
+    <div class="detyailcourse">
+        @{
+            var time = Model.Time + ":" + Model.minet + ":" + Model.secend;
+        }
+
+        <div class="infocourse">
+            @{
+                if (Model.Lock == false)
+                {
+                    <h2>قیمت دوره:<span>رایگان</span><i class="fa fa-usd" aria-hidden="true"></i></h2>
+                }
+                else
+                {
+                    <h2>قیمت دوره:<span>@((float.Parse(Model.price)).ToString("N0"))</span><i class="fa fa-usd" aria-hidden="true"></i></h2>
+                }
+            }
+
+            <p>مدرس دوره:@(_user.FindUser(Model.author).FullName)<i class="fa fa-user-o" aria-hidden="true"></i></p>
+            <p>تعداد ویدیو:@_course.GetCoutVideoCourse(Model.Id)<i class="fa fa-video-camera" aria-hidden="true"></i> </p>
+            <p>مدت زمان:@time <i class="fa fa-clock-o" aria-hidden="true"></i> </p>
+            <p>وضعیت دوره:@((Model.Status==true)?"در حال برگزاری":"اتمام دوره") <i class="fa fa-play" aria-hidden="true"></i> </p>
+            <p>سطح دوره:@Model.level <i class="fa fa-tachometer" aria-hidden="true"></i></p>
+            <p> بروزرسانی :@Model.Date.ToPeString("dddd, dd, MMMM,yyyy")<i class="fa fa-calendar" aria-hidden="true"></i>  </p>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (Model.Lock == true)
+                    {
+                        if (_course.IsBuyCurseuser(User.Identity.Name, Model.Id))
+                        {
+                            <p> دوره قبلا خریداری شده است<i class="fa fa-check" aria-hidden="true"></i>  </p>
+                        }
+                        else
+                        {
+                            <a href="/AddcourseUser/@Model.Id/@Model.Titel" class="btnregistercourse">ثبت نام دوره</a>
+                        }
+
+                    }
+                }
+                else
+                {
+                    <a href="/login" class="btnregistercourse">لطفا وارد سایت شوید</a>
+                }
+
+
+
+            }
+        </div>
+        <div class="tagcourse">
+            <h2> برچسب<i class="fa fa-hashtag" aria-hidden="true"></i> </h2>
+            <div class="tag">
+                @{
+                    foreach (var item in SpelitTag.tag(Model.Tag))
+                    {
+                        <a href="/Allcourse?tag=@item">@System.Net.WebUtility.HtmlEncode(item)</a>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="Coursevideo">
+        <div class="infovideo">
+            <h2>@Model.Titel</h2>
+            <img src="~/Img/course/Org/@Model.img" />
+            <article>
+                <h2><b>@Model.name</b></h2>
+
+                @Html.Raw(Model.Description)
+            </article>
+        </div>
+
+
+        <div class="moreVideo">
+            <div class="titelVideo">
+                <p>فهرست ویدیو ها</p>
+                <p>مدت زمان ویدیو: @time</p>
+            </div>
+            @{
+                if (VC.ListcourseVideo.Count() > 0)
+                {
+                    var row = 0;
+                    foreach (var item in VC.ListcourseVideo)
+                    {
+                        row++;
+                        <div class="detailmoreVideo">
+
+                            <div>
+                                <span>@row</span>
+                                <p>@item.name</p>
+                                @{
+                                    if (item.Lock == true)
+                                    {
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    }
+                                }
+
+                            </div>
+                            @{
+                                var timevideo = item.hour + ":" + item.minet + ":" + item.secend;
+                            }
+                            <div>
+                                <span>@timevideo</span>
+                                <a href="~/video/Course/@item.file"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="detailmoreVideo">
+
+                        <div>
+                            <span>1</span>
+                            <p>...منتظر باش تا دوره آپدیت بشه</p>
+
+                        </div>
+                        <div>
+                            <span>00:00:00</span>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+    @* <form asp-action="addcomment"
+        data-ajax="true"
+        data-ajax-method="post"
+        data-ajax-mode="replace"
+        data-ajax-update="#listcomment"
+        data-ajax-success="success">
+        <input type="hidden" name="userid" value="@(_user.FindUser(Model.author).Id)" />
+        <input type="hidden" name="courseid" value="@Model.Id" />
+        <div class="text-comment">
+        <textarea type="text" name="CMText" id="CMText" placeholder="متن را وارد کنید">
+        </textarea>
+        <input type="submit" value="ارسال" />
+        </div>
+        </form>
+        @*<div class="comment" id="listcomment">
+        @* <article class="comment-article">
+        </article>*@
+    @* </div>*@
+    <script>
+        function success(){
+            $("#CMText").valur("");
+        }
+        $(function(){
+            $("#listcomment").load("/showcomment/"+@Model.Id);
+        });
+    </script>
+</div>

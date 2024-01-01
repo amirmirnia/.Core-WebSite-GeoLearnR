@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	  <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DNTCaptcha.Core" Version="4.7.2" />
+    <PackageReference Include="HttpMultipartParser" Version="8.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="PersianDatePicker" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.TMU\Core.TMU.csproj" />
+    <ProjectReference Include="..\Data.TMU\Data.TMU.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\file\Factor\" />
+    <Folder Include="wwwroot\file\Status-face\" />
+    <Folder Include="wwwroot\Img\Gallery\Org\" />
+    <Folder Include="wwwroot\Img\Gallery\thum\" />
+    <Folder Include="wwwroot\Img\ImageSite\Org\" />
+    <Folder Include="wwwroot\Img\ImageSite\thum\" />
+    <Folder Include="wwwroot\Img\imgmenu\" />
+    <Folder Include="wwwroot\Img\News\thum\" />
+    <Folder Include="wwwroot\Img\News\Org\" />
+    <Folder Include="wwwroot\Img\Page\thum\" />
+    <Folder Include="wwwroot\Img\Page\Org\" />
+    <Folder Include="wwwroot\Img\Slider\Org\" />
+    <Folder Include="wwwroot\Img\Slider\thum\" />
+    <Folder Include="wwwroot\Status-face\Group\Pdf\" />
+    <Folder Include="wwwroot\Status-face\pricelist\" />
+    <Folder Include="wwwroot\Status-face\Pdf\" />
+    <Folder Include="wwwroot\video\Course\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Data.TMU</id>
+    <version>1.0.0</version>
+    <authors>Data.TMU</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.AspNetCore.Http.Features" version="5.0.17" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="6.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.Relational" version="6.0.4" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="6.0.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\AHMirnia\Desktop\TMU\Data.TMU\bin\Release\net6.0\Data.TMU.runtimeconfig.json" target="lib\net6.0\Data.TMU.runtimeconfig.json" />
+    <file src="C:\Users\AHMirnia\Desktop\TMU\Data.TMU\bin\Release\net6.0\Data.TMU.dll" target="lib\net6.0\Data.TMU.dll" />
+  </files>
+</package>

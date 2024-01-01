@@ -1,0 +1,112 @@
+﻿
+.chat {
+    background-color: #282828;
+    color: white;
+    left: 0;
+    z-index: 100000;
+    padding: 1em;
+    margin: 1.5em;
+    position: fixed;
+    animation: mover 2s infinite alternate;
+}
+@-webkit-keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
+    .chat:hover {
+        background-color: #ffffff;
+        color: black;
+        cursor: pointer;
+        border: 3px solid #00000040;
+        padding: 0;
+    }
+        .chat:hover .fa-comments {
+            display:none;
+        }
+
+        .chat:hover .chatbody {
+            display: flex;
+            flex-direction: column;
+            width: auto;
+        }
+
+        .chat:hover .body {
+            background-color: rebeccapurple;
+        }
+
+.chatbody {
+    display: none;
+    height: 46em;
+    overflow-y: auto;
+}
+.chatbody h1,h2,a{
+    text-align:center;
+}
+
+    .chatbody .owner {
+        margin: 1em 1em 1em 1em;
+        background-color: #fbfbfb;
+        padding: 1em;
+        border-right: 2px solid #a77fe7;
+    }
+
+    .chatbody .Audience {
+        text-align: left;
+        margin: 1em 1em 1em 1em;
+        background-color: #ffe4e4;
+        border-left: 4px solid #a77fe7;
+        padding: 1em;
+    }
+    .chatbody .inputchat {
+        display: flex;
+        flex-direction: row;
+    }
+        .chatbody .inputchat #sendchat {
+            background: #dddada;
+            color: #3a3a3a;
+            width: 9em;
+            height: 3em;
+            border: 0;
+            border-radius: 0px;
+        }
+        .chatbody .inputchat #sendchat:hover {
+            background: #bbb1b1;
+        }
+        .chatbody .inputchat input {
+            border: aliceblue;
+            border-radius: 0px;
+        }
+.inputtextchat {
+    position: absolute;
+    width: -webkit-fill-available;
+    bottom: 0;
+    background-color: #00000014;
+    padding: 1em;
+}
+.infochat {
+    background-color: #896bff;
+    cursor: pointer;
+/*    position: absolute;
+*/    width: -webkit-fill-available;
+    top: 0;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+}
+    .infochat img {
+        width: 8em;
+        padding: 1em;
+        border-radius: 50em;
+    }
+    .infochat p {
+        font-size: x-large;
+        color: white;
+    }
+    .infochat span {
+        color: #ffe4e4;
+    }

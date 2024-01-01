@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "edd09955-8906-4945-9117-c9f9f459fc33": {
+      "ProjectGuid": "edd09955-8906-4945-9117-c9f9f459fc33",
+      "DisplayName": "TMU",
+      "ColorIndex": 0
+    },
+    "06df0665-dfb0-47e6-a39d-6471e1ef0185": {
+      "ProjectGuid": "06df0665-dfb0-47e6-a39d-6471e1ef0185",
+      "DisplayName": "Data.TMU",
+      "ColorIndex": 1
+    },
+    "c6ac6823-247a-4f89-8252-bc3805d9ad66": {
+      "ProjectGuid": "c6ac6823-247a-4f89-8252-bc3805d9ad66",
+      "DisplayName": "Core.TMU",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 3
+}

@@ -1,0 +1,86 @@
+﻿@model List<Data.TMU.User.Role>
+@{
+    ViewData["Title"] = "سطح دسترسی";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+    var roleuser = ViewData["roleuser"] as List<int>;
+}
+
+<main role="main" class="main-content">
+    <div class="Header-Countainer mt-5">
+        سطح دسترسی
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <p class="text-muted">یک سطح دسترسی را تخصیص نماید.</p>
+                <p class="text-muted">با ایجاد تعیین سطح دسترسی می توانید کاربران را محدود کنید.</p>  
+                <p class="text-muted">بعد از تعیین سطح دسترسی در بخش مشخصات کاربر پست سازمانی را اعمال نمایید.</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header">
+                                <strong class="card-title">سطح ها</strong>
+                            </div>
+                            <div class="card-body m-3">
+                                <form class="needs-validation" asp-action="AccesslevelUser" method="post">
+                                    <input type="hidden" value="@ViewBag.idcode" name="idcode" />
+                                    <div class="mb-3">
+                                        @*<p class="mb-2"></p>*@
+                                        <div class="form-row">
+                                            @{
+                                                int i = 0;
+                                                foreach (var item in Model)
+                                                {
+                                                    if (roleuser != null)
+                                                    {
+                                                        if (roleuser.Contains(item.RoleId))
+                                                        {
+                                                            <div class=" custom-checkbox mb-3">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" name="SelectListItem" value="@item.RoleId" id="@i" checked>
+                                                                    <label class="custom-control-label" for="@i">@item.RoleTitle</label>
+                                                                </div>
+                                                            </div>
+                                                            i++;
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class=" custom-checkbox mb-3">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input" name="SelectListItem" value="@item.RoleId" id="@i">
+                                                                    <label class="custom-control-label" for="@i">@item.RoleTitle</label>
+                                                                </div>
+                                                            </div>
+                                                            i++;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class=" custom-checkbox mb-3">
+                                                            <div class="custom-control custom-switch">
+                                                                <input type="checkbox" class="custom-control-input" name="SelectListItem" value="@item.RoleId" id="@i">
+                                                                <label class="custom-control-label" for="@i">@item.RoleTitle</label>
+                                                            </div>
+                                                        </div>
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 text-right mt-3">
+                                                <button class="btn btn-outline-secondary" type="submit" id="start_button">تغییرات دسترسی</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div> <!-- /.card-body -->
+                        </div> <!-- /.card -->
+                    </div> <!-- /.col -->
+                </div> <!-- end section -->
+            </div> <!-- /.col-12 col-lg-10 col-xl-10 -->
+        </div> <!-- .row -->
+    </div> <!-- .container-fluid -->
+</main>
+

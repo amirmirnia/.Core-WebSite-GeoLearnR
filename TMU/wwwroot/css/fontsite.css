@@ -1,0 +1,68 @@
+﻿
+/*WebYekanFont*/
+@font-face {
+    font-family: 'YJ';
+    src: url('../fonts/font/Yekan.eot') format('eot'), /* IE6–8 */
+    url('../fonts/font/Yekan.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/font/Yekan.ttf') format('truetype'); /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+}
+
+/*WebYekanNumberFont*/
+@font-face {
+    font-family: 'NYJ';
+    src: url('../fonts/font/yekannumbers-regular.eot') format('eot'), /* IE6–8 */
+    url('../fonts/font/yekannumbers-regular.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/font/yekannumbers-regular.ttf') format('truetype'); /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+}
+
+/*StartExample*/
+body {
+    font-family: yj,nyj;
+    font-weight: normal;
+    text-align:justify;
+}
+
+.mainmenu {
+    font-family: yj,nyj;
+    font-size: 14px;
+    font-weight: normal;
+}
+/*EndExample*/
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, g {
+    font-family: yj,NYJ;
+    font-size: 19px;
+    font-weight: normal;
+}
+
+p {
+    font-family: yj,nyj;
+    font-size: 14px;
+    font-weight: normal;
+}
+li {
+    font-family: yj,nyj;
+    font-size: 14px;
+    font-weight: normal;}
+a {
+    font-family: yj,nyj;
+    font-weight: normal;
+
+}
+span,g {
+    font-family: yj,nyj;
+    font-size: 14px;
+    font-weight: normal;
+
+}
+td {
+    font-family: yj,nyj;
+    font-size: 14px;
+    font-weight: normal;
+
+}
+th {
+    font-family: yj,nyj;
+    font-size: 14px;
+    font-weight: normal;
+}

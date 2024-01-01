@@ -1,0 +1,207 @@
+﻿body {
+}
+
+.ContentPanel {
+    display: flex;
+    flex-direction: row;
+    direction: rtl;
+}
+
+.PartialMenu {
+    box-shadow: 0px -1px 6px 0px #00000038;
+    margin: 1em;
+    padding: 1em;
+}
+
+    .PartialMenu figure img {
+        width: 12em;
+        border: 7px solid #0000001f;
+    }
+
+    .PartialMenu a {
+        display: flex;
+        align-items: center;
+        font-size: 2em;
+        color: #382e2e;
+        margin: 0.3em 0;
+        padding: 0.2em 0.6em 0.2em 0.6em;
+        border-bottom: 0.5px solid #00000030;
+    }
+
+        .PartialMenu a:hover {
+            background-color: #ebdddd;
+            color: #416262;
+        }
+
+    .PartialMenu li {
+        margin: 0 1em;
+    }
+
+li, ul {
+    list-style-type: none;
+}
+
+.content {
+    box-shadow: 0px -1px 6px 0px #00000038;
+    margin: 1em;
+    padding: 1em;
+    width: -webkit-fill-available;
+    height: fit-content;
+}
+
+    .content header {
+        border-bottom: 1px solid;
+        margin: 0 0 1em 0;
+    }
+
+.IconPanel {
+    box-shadow: 0px -1px 6px 0px #00000038;
+    margin: 1em;
+    padding: 1em;
+    width: -webkit-fill-available;
+    height: fit-content;
+    display: flex;
+}
+
+    .IconPanel a {
+        margin: 1em;
+    }
+
+    .IconPanel .IC1 {
+        margin: 1em;
+        background-color: #00ffdc;
+        padding: 1em;
+        color: black;
+    }
+
+        .IconPanel .IC1:hover {
+            background-color: #e1e1e1;
+        }
+
+.mainPanel {
+    width: -webkit-fill-available;
+}
+
+.content input[type="number"] {
+    padding: 0.3em;
+    border: 0px;
+    border-bottom: 1px solid;
+    margin: 0 0.6em;
+}
+
+    .content input[type="number"]:focus-visible {
+        outline: none;
+    }
+
+.content .btn {
+    background-color: #e7f9ff;
+}
+
+.content .btnblue {
+    border: 0;
+    padding: 1em;
+    margin: 0.6em;
+    font-size: 1em;
+    background-color: #e7f9ff;
+    cursor: pointer;
+}
+
+.content input[type="text"] {
+    padding: 0.3em;
+    border: 0px;
+    border-bottom: 1px solid;
+    margin: 0 0.6em;
+}
+
+    .content input[type="text"]:focus-visible {
+        outline: none;
+    }
+
+.content input[type="password"] {
+    padding: 0.3em;
+    border: 0px;
+    border-bottom: 1px solid;
+    margin: 0 0.6em;
+}
+
+    .content input[type="password"]:focus-visible {
+        outline: none;
+    }
+
+.content input[type="email"] {
+    padding: 0.3em;
+    border: 0px;
+    border-bottom: 1px solid;
+    margin: 0 0.6em;
+}
+
+    .content input[type="email"]:focus-visible {
+        outline: none;
+    }
+
+.btngray {
+    margin: 1em;
+    background-color: #e1e1e1;
+    padding: 1em;
+    color: black;
+    border: 0;
+    cursor: pointer;
+    font-size:large;
+
+}
+
+    .btngray:hover {
+        margin: 1em;
+        background-color: #ffe0e0;
+        padding: 1em;
+        color: black;
+        border: 0;
+        cursor: pointer;
+    }
+
+.imagecorsepanel {
+    width: 31em;
+    border: 11px solid #97939340;
+}
+
+.linner .form-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.linner .form-input {
+    margin: 1em;
+    padding: 1em;
+    border-right: 2px solid #e7dfdf;
+}
+.ContentPanel .avatar img{
+    width: 10em;
+    border: 8px solid #f7e4e4;
+}
+select {
+    font-size: larger;
+    border: 0;
+    border-bottom: 1px solid;
+}
+.m-1{
+    margin:1em;
+}
+.form-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+   .inputPasswordformcol {
+        font-size: 0.8em;
+    }
+
+.walletShowP {
+    text-align: center;
+    background-color: #fcfcfc;
+    padding: 0.5em 0;
+    font-size: 1.1em;
+    border-bottom-left-radius: 11em;
+}
+.field-validation-error{
+    color:red;
+}

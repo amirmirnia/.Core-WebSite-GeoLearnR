@@ -1,0 +1,72 @@
+﻿@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.IGeneric<Data.TMU.User.Useronline> _gUON
+@inject Core.TMU.Service.ITMUService.IPermision _Permition
+@using Core.TMU.Convertor
+@{
+    ViewData["Title"] = "داشبورد";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    var Role = _Permition.GetPermitionPrintRole();
+}
+
+
+<input type="hidden" id="Idcode" value="@User.Identity.Name" />
+
+
+<main class="ContentPanel">
+
+    <partial name="panelPartial" />
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>اطلاعات حساب کاربری</h2>
+            </header>
+            <div class="linner">
+                <p>نام و نام خانوادگی:@_user.FindUser(User.Identity.Name).FullName</p>
+                <p>شماره همراه:@_user.FindUser(User.Identity.Name).Mobile</p>
+                <p>کیف پول:@(_user.BalanceWalletUser(User.Identity.Name).ToString("#,0 تومان"))</p>
+                <p>ایمیل:@_user.FindUser(User.Identity.Name).Email</p>
+                <p>کدملی:@_user.FindUser(User.Identity.Name).IdCode</p>
+                <p>پست:@((int.Parse(_user.FindUser(User.Identity.Name).post) !=0)?_Permition.GetRoleById(int.Parse(_user.FindUser(User.Identity.Name).post)).RoleTitle:"دانشجو")</p>
+            </div>
+
+        </div>
+        <div class="IconPanel">
+            <a href="/Panel/profilesettings">
+                <div id="IconPanel2">
+                    تنظیمات شخصی
+                </div>
+            </a>
+            <a href="/Panel/ResetPassword">
+                <div id="IconPanel1">
+                 تغییر پسورد
+                </div>
+            </a>
+            
+            <a href="/Logout">
+                <div id="IconPanel3">
+                    خروج
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    @*    <section>
+        <div id="alertportrait">
+        <h2>صفحه دستگاه خود را بچرخانید</h2>
+        <p>جهت نمایش بهتر سایت دستگاه خود را به حالت افقی در بیاورید </p>
+        </div>
+
+
+
+
+        </section>*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+</main>
+

@@ -1,0 +1,14 @@
+﻿@using Data.TMU.Model
+@model User
+
+<div style="direction: rtl;padding: 20px;border: 2px inset #c8c4dc;text-align: center;">
+
+    <img src="https://localhost:44365/img/footer.png"/>
+
+    <h2>@Model.FullName عزیز!</h2>
+   
+        <p>همکار گرامی @Model.FullName نام شما در سیستم ما ثبت شده است.جهت فعال سازی حساب کاربری بر روی لینک زیر کلیک نمایید</p>
+
+    
+    <a href="https://localhost:44365/Account/ActiveEmail/@Model.ActiveCode">لینک فعال سازی</a>
+</div>

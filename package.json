@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "html2pdf.js": "^0.10.1",
+    "persian-datepicker": "^1.2.0"
+  }
+}

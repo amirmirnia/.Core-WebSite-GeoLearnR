@@ -1,0 +1,146 @@
+﻿@model Data.TMU.Model.Course.ListCourseVideoViewModel
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.IPermision _Permition
+
+
+@{
+    var course = ViewBag.course as Data.TMU.Model.Course.Course;
+
+    ViewData["Title"] = @course.name + " لیست ";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<main class="ContentPanel">
+    <form asp-action="ListUser" method="get" id="form">
+
+        <input type="hidden" id="IdActive" name="IdActive" value="none" />
+
+    </form>
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="IconPanel">
+            <a href="/panel/creatVideocourse/@course.Id/@course.name" type="button" class="IC1"><span class="fe fe-filter fe-12 mr-2"></span>ویدیو جدید</a>
+
+        </div>
+        <div class="content">
+            <header>
+                <h2> ویدیو @course.name</h2>
+            </header>
+            <form asp-action="ListVideocourse" method="get" id="form">
+                <input type="hidden" asp-for="@course.Id" />
+                <input type="hidden" id="pageid" name="pageid" value="1" />
+                <div class="form-row">
+                    <label for="inputEmail4">نام ویدیو</label>
+                    <input type="text" class="form-control" id="inputAddress" value="@ViewBag.filtertitel" name="filtertitel" placeholder="نام ویدیو">
+                    <button type="submit" class="btngray">جستجو</button>
+                </div>
+
+            </form>
+            <div class="linner">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>وضعیت</th>
+                            <th> <input class="form-control" type="text" id="name" onkeyup="name()" placeholder="نام ویدیو " title="نام ویدیو"></th>
+                            <th>زمان ویدیو</th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <form asp-action="Delet" method="post">
+                    <tbody id="myTable">
+                            @{
+                                foreach (var item in Model.ListcourseVideo)
+
+                                {
+
+                                <tr>
+                                    <td>
+                                        <div class=" custom-checkbox mb-3">
+                                            <div class="custom-control custom-switch">
+                                                    @{
+                                                    <small class="mb-0 text-muted">@((item.Lock==true)?"قفل":"رایگان")</small>
+
+                                                    }
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@item.name</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                        @{
+                                            var time = item.hour + ":" + item.minet + ":" + item.secend;
+                                        }
+                                    <td>
+                                        <p class="mb-0 text-muted">@time</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td class="text-muted">@item.Date.ToPeString("dddd, dd, MMMM,yyyy")</td>
+                                    <td>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                                @{
+                                                <a href="/panel/UpdateVideocourse/@item.IdFC"title="ویرایش "><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href="" onclick="confirmAction(@item.IdFC)"title="حذف ویدیو "><i class="fa fa-remove"></i></a>
+                                                }
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                }
+                            }
+
+
+                    </tbody>
+                    </form>
+
+
+                </table>
+
+            </div>
+            <nav aria-label="Table Paging" class="my-3">
+                <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item"><a class="page-link" href="#">قبلی</a></li>
+                    @{
+
+
+                        for (int i = 1; i <= Model.CountPage; i++)
+                        {
+                            <li class=@(Model.IdPage==i?"page-item active" :"page-item")><a class="page-link" onclick="countpage(@i)">@i</a></li>
+
+                        }
+
+                    }
+                    <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+
+</main>
+
+<script>
+       function countpage(pageid)
+       {
+           $("#pageid").val(pageid);
+           $("#form").submit();
+       }
+
+    function confirmAction(id) {
+           let confirmAction = confirm("آیا از حذف اطمینان دارید");
+           if (confirmAction) {
+             window.open("/panel/Deletevideocourse/"+id);
+           } else {
+             alert("حذف لغو شد");
+           }
+         }
+</script>

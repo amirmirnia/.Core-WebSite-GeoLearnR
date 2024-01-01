@@ -1,0 +1,154 @@
+﻿@model Data.TMU.Model.News.ListNewsViewModel
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.IUser _user
+
+@{
+    ViewData["Title"] = "لیست مقالات";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+
+
+<main class="ContentPanel">
+    
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="IconPanel">
+            <a href="/panel/CreatNews" type="button" class="IC1"><span class="fe fe-filter fe-12 mr-2"></span>ایجاد مقاله</a>
+
+        </div>
+        <div class="content">
+            <header>
+                <h2>مقالات</h2>
+            </header>
+            <form asp-action="ListNews" method="get" id="form">
+
+                    <input type="hidden" id="pageid" name="pageid" value="1" />
+                    <div class="form-row">
+              
+                            <label>عنوان</label>
+                            <input type="text" class="form-control" id="inputAddress" value="@ViewBag.tag" name="tag" placeholder="کلمه کلیدی را وارد کنید">
+                   
+                        
+                            <label>تگ</label>
+                            <input type="text" class="form-control" id="inputAddress" value="@ViewBag.filtertitel" name="filtertitel" placeholder=" عنوان خبر را وارد کنید">
+               
+                            <button type="submit" class="btngray">جستجو</button>
+                        
+                    </div>
+
+                </form>
+            <div class="linner">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                ردیف
+                            </th>
+                            <th>عکس</th>
+                            <th>عنوان</th>
+                            <th>تعداد بازدید</th>
+                            <th>تارخ ثبت</th>
+                            <th>نویسنده</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <form asp-action="" method="post">
+                    <tbody>
+                            @{
+                                int row = 0;
+                                foreach (var item in Model.ListNews)
+                                {
+                                    row++;
+                                <tr>
+                                    <td>
+                                            @row;
+                                    </td>
+                                    <td>
+                                        <div class="avatar avatar-sm">
+                                            <img src="~/Img/News/thum/@item.image" alt="" class="avatar-img rounded-circle">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.TitelNews</strong></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.CountView</strong></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@item.DetaNews.ToPeString("dddd, dd, MMMM,yyyy")</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@_user.FindUser(User.Identity.Name).FullName</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="/panel/UpdateNews?id=@item.IdNews" title="ویرایش "><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                            <a  href="" onclick="confirmAction(@item.IdNews)" title="حذف مقاله"><i class="fa fa-remove"></i> </a>
+                                            <a href="/panel/DetailImageNews/@item.IdNews" title="ویرایش عکس"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href="/panel/CreatImageNews/@item.IdNews" title="ثبت عکس"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+                            }
+
+
+                    </tbody>
+                    </form>
+
+
+                </table>
+            </div>
+            <nav aria-label="Table Paging" class="my-3">
+                <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item"><a class="page-link" href="#">قبلی</a></li>
+                    @{
+
+
+                        for (int i = 1; i <= Model.CountPage; i++)
+                        {
+                            <li class=@(Model.IdPage==i?"page-item active" :"page-item")><a class="page-link" onclick="countpage(@i)">@i</a></li>
+
+                        }
+
+                    }
+                    <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+
+<script>
+       function countpage(pageid)
+       {
+           $("#pageid").val(pageid);
+           $("#form").submit();
+       }
+
+    function confirmAction(id) {
+           let confirmAction = confirm("آیا از حذف اطمینان دارید");
+           if (confirmAction) {
+             window.open("/panel/DeleteNews/"+id);
+           } else {
+             alert("حذف لغو شد");
+           }
+         }
+</script>
+

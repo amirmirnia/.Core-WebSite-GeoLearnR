@@ -1,0 +1,179 @@
+﻿@model Data.TMU.Model.Course.ListCourseViewModel
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.IPermision _Permition
+@inject Core.TMU.Service.ITMUService.ICourse Course
+
+@{
+    ViewData["Title"] = "لیست دوره ها";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+
+}
+
+
+
+
+
+<main class="ContentPanel">
+    <form asp-action="ListUser" method="get" id="form">
+
+        <input type="hidden" id="IdActive" name="IdActive" value="none" />
+
+    </form>
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="IconPanel">
+            <a href="/panel/creatcourse" type="button" class="IC1"><span class="fe fe-filter fe-12 mr-2"></span>ایجاد دوره جدید</a>
+
+        </div>
+        <div class="content">
+            <header>
+                <h2>لیست دوره ها</h2>
+            </header>
+            <form asp-action="Listcourse" method="get" id="form">
+
+                <input type="hidden" id="IdActive" name="IdActive" value="none" />
+                <input type="hidden" id="pageid" name="pageid" value="1" />
+                <div class="form-row">
+                    <label>کد ملی</label>
+                    <input type="text" class="form-control" id="inputAddress" value="@ViewBag.filtertitel" name="filtertitel" placeholder="نام دوره">
+                    <label>نام</label>
+                    <input type="text" class="form-control" id="inputAddress" value="@ViewBag.tag" name="tag" placeholder="تگ دوره">
+
+                    <button type="submit" class="btngray">جستجو</button>
+                </div>
+
+            </form>
+            <div class="linner">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>وضعیت</th>
+                            <th>عکس</th>
+                            <th>نام دوره</th>
+                            <th>قیمت دوره</th>
+                            <th>مدرس</th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <form asp-action="DeleteListUser" method="post">
+                    <tbody id="myTable">
+                            @{
+                                int row = 0;
+                                foreach (var item in Model.Listcourse)
+                                {
+                                    row++;
+                                <tr>
+                                    <td>
+                                            @row;
+                                    </td>
+                                    <td>
+                                        <div class=" custom-checkbox mb-3">
+                                            <div class="custom-control custom-switch">
+                                                    @{
+                                                    <small class="mb-0 text-muted">@((item.Status==true)?"در حال برگزاری":"اتمام دوره")</small>
+                                                    }
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="avatar avatar-sm">
+                                            <img src="/Img/course/thum/@item.img" alt="@item.Titel">
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <p class="mb-0 text-muted">@item.name</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@((float.Parse(item.price)).ToString("N0"))</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@_user.FindUser(item.author).FullName</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td class="text-muted">@item.Date.ToPeString("dddd, dd, MMMM,yyyy")</td>
+                                    <td>
+
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                                @{
+                                                <a class="dropdown-item" href="/panel/Updatecourse?id=@item.Id" title="ویرایش "><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+                                                    if (Course.GetCoutVideoCourse(item.Id) == 0)
+                                                    {
+                                                    <a class="dropdown-item" href="/panel/creatVideocourse/@item.Id" title="ثبت ویدیو"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+
+                                                    <a class="dropdown-item" href="" onclick="confirmAction(@item.Id)" title="حذف دوره "><i class="fa fa-remove"></i></a>
+                                                    }
+                                                    else
+                                                    {
+                                                    <a class="dropdown-item" href="/panel/ListVideocourse/@item.Id" title="لیست ویدیو">
+                                                        <i class="fa fa-server" aria-hidden="true"></i>
+                                                    </a>
+                                                    }
+
+                                                }
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                }
+                            }
+
+
+                    </tbody>
+                    </form>
+
+
+                </table>
+
+            </div>
+            <nav aria-label="Table Paging" class="my-3">
+                <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item"><a class="page-link" href="#">قبلی</a></li>
+                    @{
+
+
+                        for (int i = 1; i <= Model.CountPage; i++)
+                        {
+                            <li class=@(Model.IdPage==i?"page-item active" :"page-item")><a class="page-link" onclick="countpage(@i)">@i</a></li>
+
+                        }
+
+                    }
+                    <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+
+</main>
+
+<script>
+       function countpage(pageid)
+       {
+           $("#pageid").val(pageid);
+           $("#form").submit();
+       }
+
+    function confirmAction(id) {
+           let confirmAction = confirm("آیا از حذف اطمینان دارید");
+           if (confirmAction) {
+             window.open("/panel/Deletecourse/"+id);
+           } else {
+             alert("حذف لغو شد");
+           }
+         }
+</script>

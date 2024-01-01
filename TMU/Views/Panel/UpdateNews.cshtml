@@ -1,0 +1,89 @@
+﻿@model Data.TMU.Model.News.News
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.IUser user
+@{
+    ViewData["Title"] = "ویرایش مقاله";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<main class="ContentPanel">
+    @*    <form asp-action="ListUser" method="get" id="form">
+
+        <input type="hidden" id="IdActive" name="IdActive" value="none" />
+
+        </form>*@
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>ویرایش مقاله</h2>
+            </header>
+            <div class="linner">
+                <form asp-action="UpdateNews" method="post">
+                    <div class="col-12 col-xl-10">
+                        <input asp-for="IdNews" type="hidden">
+                        <input asp-for="IsSearch" type="hidden">
+                        <input asp-for="author" type="hidden" value="@User.Identity.Name">
+                        <input type="hidden" asp-for="DetaNews" value="@Model.DetaNews">
+                        <input type="hidden" asp-for="CountView" value="@Model.CountView">
+                        <p class="mb-4">اطلاعات خواسته شده را تکمیل نمایید.</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="firstname">عنوان مقاله</label>
+                                <input asp-for="TitelNews" type="text" id="firstname" class="form-control">
+                                <span asp-validation-for="TitelNews"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="firstname">تیتر مقاله</label>
+                                <input asp-for="SubjectNews" type="text" id="firstname" class="form-control">
+                                <span asp-validation-for="SubjectNews"></span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="lastname">هایلایت مقاله</label>
+                                <input asp-for="Mark" type="text" id="firstname" class="form-control">
+                                <span asp-validation-for="Mark"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastname">کلمات کلیدی را با - انتخاب کنید</label>
+                                <input asp-for="Tags" type="text" id="lastname" class="form-control">
+                                <span asp-validation-for="Tags"></span>
+                            </div>
+
+                        </div>
+                        <hr class="my-4">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <h5 class="card-title">ویرایشگر</h5>
+                                        <p>متن مورد نیاز خود را در ویرایشگر زیر وارد کنید</p>
+                                        <!-- Create the editor container -->
+
+                                        <textarea asp-for="DescriptionNews" id="editor" class="form-control" rows="10"></textarea>
+                                        <span asp-validation-for="DescriptionNews"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="submit" class="btngray">ویرایش مقاله</button>
+                            </div>
+                        </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+</main>

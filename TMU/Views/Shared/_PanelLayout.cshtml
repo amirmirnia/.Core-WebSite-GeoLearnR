@@ -1,0 +1,152 @@
+﻿@inject Core.TMU.Service.ITMUService.IUser _user
+
+@inject Core.TMU.Service.ITMUService.IPermision Permision
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor accessor
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>@ViewData["Title"]</title>
+    @await Html.PartialAsync("_PanelStyle")
+
+</head>
+<body class="vertical  light rtl ">
+    <input type="hidden" id="nameuser" value="@(_user.FindUser(User.Identity.Name).FullName)" />
+    <input type="hidden" id="postuser" value="@((int.Parse(_user.FindUser(User.Identity.Name).post) !=0)?Permision.GetRoleById(int.Parse(_user.FindUser(User.Identity.Name).post)).RoleTitle:"پست ندارد")" />
+
+    <div id="loaderPage">
+        <img src="~/Img/More/Loader.png" alt="Loading...">
+        <h2>لطفا صبور باشید...</h2>
+    </div>
+    <input type="hidden" id="Idcode" value="@User.Identity.Name" />
+    <p id="conecttoserver"></p>
+
+
+
+
+
+    <div class="bodypanel">
+        <div class="header">
+            <div class="header1">
+                <div class="headerinfo">
+                    <img src=@((_user.FindUser(User.Identity.Name).UserAvatar!=null)?"/Img/Userprofile/"+@_user.FindUser(User.Identity.Name).UserAvatar:"/Img/Userprofile/DefultAvatar.jpg") alt="@_user.FindUser(User.Identity.Name).FullName">
+                    <div>
+                        <p id="nametitel">@_user.FindUser(User.Identity.Name).FullName</p>
+                        <p id="posttitel">@((int.Parse(_user.FindUser(User.Identity.Name).post) !=0)?Permision.GetRoleById(int.Parse(_user.FindUser(User.Identity.Name).post)).RoleTitle:"پست ندارد")</p>
+                    </div>
+
+                </div>
+                <div class="headerSetting">
+                    <a href="/Panel/ProfileHome">
+                        <div id="headerSetting1">
+                            @*                            <i class="fa fa-address-card"></i>
+                            *@                            پروفایل
+                        </div>
+                    </a>
+                    <a href="/Panel/profilesettings">
+                        <div id="headerSetting2">
+                            @*                            <i class="fa fa-cogs"></i>
+                            *@                            تنظیمات
+                        </div>
+                    </a>
+                    <a href="/Logout">
+                        <div id="headerSetting3">
+                            @*                            <i class="fa fa-sign-out"></i>
+                            *@
+                            خروج
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+            <div class="header3">
+                <div class="headerdata">
+                    <span>امروز:</span>
+                    <p>@DateTime.Now.ToPeString("dddd, dd, MMMM,yyyy")</p>
+                </div>
+            </div>
+            <div class="header3">
+                <div class="headerdata">
+                    <span>کیف پول:</span>
+                    <p>@(_user.BalanceWalletUser(User.Identity.Name).ToString("#,0 تومان"))</p>
+                </div>
+            </div>
+
+
+            @{
+
+                <div class="header2">
+                    <ul>
+                        <a href="/panel"><i class="fa fa-television"></i>
+                        <li>میزکار</li> </a>
+                        <a href="/panel/Wallet"><i class="fa fa-money"></i>
+                        <li>کیف پول</li> </a>
+                        @{
+                            //if (_user.FindUser(User.Identity.Name).IsNormalUser == false && _user.FindUser(User.Identity.Name).IsAdmin == true)
+                            //{
+
+                            //    <a href="/panel/ListUser"><i class="fa fa-group"></i><li>لیست اعضا</li></a>
+                            //    <a href="/panel/permision"><i class="fa fa-eye"></i><li>ایجاد دسترسی</li></a>
+                            //}
+                            if (Permision.CheakPermissionAllow(2, _user.FindUser(User.Identity.Name).Id) == true)
+                            {
+
+                                <a href="/panel/ListUser"><i class="fa fa-group"></i>
+                                <li>مدیریت پرسنل</li></a>
+                            }
+                            if (Permision.CheakPermissionAllow(1, _user.FindUser(User.Identity.Name).Id) == true)
+                            {
+
+                                <a href="/panel/permision"><i class="fa fa-eye"></i>
+                                <li>تعریف و تغییر نقشهای پرسنلی</li></a>
+                            }
+                        }
+
+                        @{
+                            if (Permision.CheakPermissionAllow(3, _user.FindUser(User.Identity.Name).Id) == true)
+                            {
+                                <a href="/panel/ListNavbar" class=@((_user.FindUser(User.Identity.Name).post=="0" || _user.FindUser(User.Identity.Name).level==null)?"disabled":"")><i class="fa fa-list"></i>
+                                <li>ثبت منو</li></a>
+                            }
+                        }
+                        @{
+                            if (Permision.CheakPermissionAllow(2, _user.FindUser(User.Identity.Name).Id) == true)
+                            {
+                                <a href="/panel/ListNews" class=@((_user.FindUser(User.Identity.Name).post=="0" || _user.FindUser(User.Identity.Name).level==null)?"disabled":"")><i class="fa fa-book"></i>
+                                <li>مقالات</li></a>
+                            }
+                        }
+
+                        @{
+                            if (Permision.CheakPermissionAllow(1, _user.FindUser(User.Identity.Name).Id) == true)
+                            {
+                                <a href="/panel/Listcourse" class=@((_user.FindUser(User.Identity.Name).post=="0" || _user.FindUser(User.Identity.Name).level==null)?"disabled":"")><i class="fa fa-graduation-cap"></i>
+                                <li>دوره ها</li></a>
+                            }
+                        }
+
+
+                        <div><p>در صورت بروز مشکل با ادمین تماس بگیرید</p></div>
+                    </ul>
+                </div>
+                //}
+                //else
+                //{
+                //    <p>پست شما در سیستم درج نشده است</p>
+                //}
+
+            }
+
+
+        </div>
+        <div class="bodypanel">
+            @RenderBody()
+        </div>
+    </div>
+    @await Html.PartialAsync("_PanelFooter");
+    @RenderSection("Scrript", false)
+</body>
+</html>

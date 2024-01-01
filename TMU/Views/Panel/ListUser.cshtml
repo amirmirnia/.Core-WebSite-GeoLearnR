@@ -1,0 +1,314 @@
+﻿@model Data.TMU.Model.ListUserViewModel
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.IPermision _Permition
+
+
+@{
+    ViewData["Title"] = "مدیریت پرسنل";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var Alluser = ViewBag.AllUser as Data.TMU.Model.ListUserViewModel;
+
+
+}
+
+
+<main class="ContentPanel">
+    <form asp-action="ListUser" method="get" id="form">
+
+                    <input type="hidden" id="IdActive" name="IdActive" value="none" />
+
+                </form>
+    <partial name="panelPartial" />
+   
+    <div class="mainPanel">
+         <div class="IconPanel">
+            <a href="/panel/registerUser" type="button" class="IC1">تعریف پرسنل جدید </a>
+
+        </div>
+        <div class="content">
+            <header>
+                <h2>مدیریت پرسنل</h2>
+            </header>
+            <div class="linner">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>وضعیت</th>
+                            <th>عکس</th>
+                            <th> <input class="form-control" type="text" id="name" onkeyup="name()" placeholder="نام " title="نام"></th>
+                            <th><input class="form-control" type="email" id="email" onkeyup="email()" placeholder="ایمیل " title="ایمیل"></th>
+                            <th>موبایل</th>
+                            <th><input class="form-control" type="text" id="code" onkeyup="code()" placeholder="کد ملی " title="کد ملی"></th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <form asp-action="DeleteListUser" method="post">
+                    <tbody id="myTable">
+                            @{
+                                foreach (var item in Model.Listuser)
+                                {
+
+                                <tr>
+                                    <td>
+                                        <div class=" custom-checkbox mb-3">
+                                            <div class="custom-control custom-switch">
+                                                    @{
+                                                        if (item.IsActive == true)
+                                                        {
+                                                        <input type="checkbox" class="custom-control-input" name="SelectListItemActive" value="1" onchange="active(@item.IdCode)" id="@item.IdCode" checked>
+                                                        <label class="custom-control-label" for="@item.IdCode">فعال</label>
+                                                        }
+                                                        else
+                                                        {
+                                                        <input type="checkbox" class="custom-control-input" name="SelectListItemActive" value="1" onchange="active(@item.IdCode)" id="@item.IdCode">
+                                                        <label class="custom-control-label" for="@item.IdCode">غیرفعال</label>
+
+                                                        }
+
+                                                    }
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="avatar avatar-sm">
+                                            <img src=@(item.UserAvatar!=null?"/Img/Userprofile/"+item.UserAvatar:"/Img/Userprofile/DefultAvatar.jpg") alt="@item.FullName" class="avatar-img rounded-circle">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.FullName</strong></p>
+                                       <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@item.Email</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@item.Mobile</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted">@item.IdCode</p>
+                                        <small class="mb-0 text-muted"></small>
+                                    </td>
+                                    <td class="text-muted">@item.RegisterDate.ToPeString("dddd, dd, MMMM,yyyy")</td>
+                                    <td>
+
+                                        <div>
+                                                @{
+                                                    if (item.IsAdmin == false)
+                                                    {
+                                                    <a href="/panel/profilesettings?idcode=@item.IdCode"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                    <a href="/panel/DeleteListUser/@item.IdCode"><i class="fa fa-remove"></i></a>
+                                    //<a class="dropdown-item" href="/panel/AccesslevelUser?urlidcode=@item.IdCode">سطح دسترسی</a>
+                                                    <a  href="/panel/Resetpassworduser?idcode=@item.IdCode"><i class="fa fa-key" aria-hidden="true"></i></a>
+                                                    }
+                                                    else
+                                                    {
+                                                    <a  href="/Panel/profilesettings"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                    }
+                                                }
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                }
+                            }
+
+
+                    </tbody>
+                    </form>
+
+
+                </table>
+            </div>
+
+        </div>
+
+
+        <div class="content">
+            <header>
+                <h2>کاربران</h2>
+            </header>
+            <div class="linner">
+                @{
+                    if (_Permition.CheakPermissionAllow(2, @_user.FindUser(User.Identity.Name).Id) == true)
+                    {
+                        @if (Alluser.Listuser.Count > 0)
+                        {
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام</th>
+                                        <th>ایمیل</th>
+                                        <th>کدملی</th>
+                                        <th>کد پرسنلی</th>
+                                        <th>پست</th>
+                                        <th>وضعیت</th>
+                                        <th>ادمین</th>
+
+                                    </tr>
+
+
+                                    @{
+                                        int o = 0;
+                                        foreach (var item in Alluser.Listuser)
+                                        {
+                                            o++;
+                                            <tr>
+                                                <td>@o</td>
+                                                <td>@item.FullName-@((int.Parse(_user.FindUser(item.Id).post) !=0)?_Permition.GetRoleById(int.Parse(_user.FindUser(item.Id).post)).RoleTitle:"پست ندارد")</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.IdCode</td>
+                                                <td>@item.CodePerseneli</td>
+                                                <td>
+                                                    @if (int.Parse(item.post) != 0)
+                                                    {
+                                                        <span>@_Permition.GetRoleById(int.Parse(item.post)).RoleTitle</span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-window-minimize" title="پست ندارد"></i>
+
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (@item.IsActive == true)
+                                                    {
+                                                        <i class="fa fa-check-square-o"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-minus-circle" title="غیرفعال"></i>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (@item.IsAdmin == true)
+                                                    {
+                                                        <i class="fa fa-check-square-o"></i>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-remove"></i>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+
+                        }
+
+                    }
+                }
+                <nav aria-label="Table Paging" class="my-3">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item"><a class="page-link" href="#">قبلی</a></li>
+                        @{
+
+
+                            for (int i = 1; i <= Model.CountPage; i++)
+                            {
+                                <li class=@(Model.IdPage==i?"page-item active" :"page-item")><a class="page-link" onclick="countpage(@i)">@i</a></li>
+
+                            }
+
+                        }
+                        <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    function Name() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("name");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+        function email() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("email");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[4];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+        function code() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("code");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[6];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+    function countpage(pageid)
+    {
+        $("#pageid").val(pageid);
+        $("#form").submit();
+    }
+
+    function active(Id)
+    {
+        $("#IdActive").val(Id);
+        $("#form").submit();
+    }
+</script>

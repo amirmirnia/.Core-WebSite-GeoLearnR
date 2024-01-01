@@ -1,0 +1,78 @@
+﻿@model Data.TMU.Model.Course.ListCourseUserViewModel
+@inject Core.TMU.Service.ITMUService.IUser _user
+@using System.Text.Encodings.Web;
+
+
+@{
+    ViewData["Title"] = "ListcoursUser";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<main class="ContentPanel">
+
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+
+        <div class="content">
+            <header>
+                <h2>دوره های شما</h2>
+            </header>
+            <div class="linner">
+
+                <div>
+                    <table>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>عکس</th>
+                            <th>دوره</th>
+                            <th>استاد</th>
+                            <th>لینک</th>
+
+                        </tr>
+
+
+                        @{
+                            int o = 0;
+                            foreach (var item in Model.CourseUserViewModel)
+                            {
+                                o++;
+                                <tr>
+                                    <td>@o</td>
+                                    <td><img src="~/Img/course/thum/@item.img" title="@item.name"/></td>
+                                    <td>@item.name</td>
+                                    <td>@_user.FindUser(item.author).FullName</td>
+                                    <td><a href="/Course/@item.IdCourse/@UrlEncoder.Default.Encode(item.name.Replace(" ", "-"))" title="@item.name">مشاهده</a></td>
+                                   
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+
+
+                <nav aria-label="Table Paging" class="my-3">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item"><a class="page-link" href="#">قبلی</a></li>
+                        @{
+
+
+                            for (int i = 1; i <= Model.CountPage; i++)
+                            {
+                                <li class=@(Model.IdPage==i?"page-item active" :"page-item")><a class="page-link" onclick="countpage(@i)">@i</a></li>
+
+                            }
+
+                        }
+                        <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+

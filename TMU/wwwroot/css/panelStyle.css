@@ -1,0 +1,615 @@
+.body {
+    background-color: #f3f3f3;
+}
+
+
+.bodypanel {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.header {
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+}
+    .header p#onlineP {
+        text-align: center;
+        padding: 1em;
+        background: rgb(92, 133, 119);
+        color: white;
+        font-size: initial;
+    }
+.header1 {
+    background-color: white;
+    box-shadow: #0e0e0e 1px 1px 5px 0px;
+    margin: 0.5em;
+}
+
+.header2 {
+    background-color: white;
+    box-shadow: #0e0e0e 1px 1px 5px 0px;
+    margin: 0.5em;
+}
+
+    .header2 div {
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 0 0.7em;
+        background-color: #1a1a1ac7;
+        color: white;
+        font-size: smaller;
+    }
+
+        .header2 div p {
+            margin: 1em 1em 1em 0;
+        }
+
+        .header2 div img {
+            width: 3em;
+        }
+
+    .header2 ul {
+        list-style: none;
+        padding: 0em;
+    }
+
+        .header2 ul a {
+            display: flex;
+            flex-direction: row;
+            padding: 0.5em;
+            border-bottom: 1px solid #00000047;
+            color: #000000a8;
+        }
+
+            .header2 ul a:hover {
+                border-right: 2px solid #4c4c4c;
+                text-decoration-line: none;
+            }
+
+                .header2 ul a:hover i {
+                    text-decoration-line: none;
+                    color: #263c3a;
+                }
+
+            .header2 ul a img {
+                width: 3em;
+                border-radius: 50%;
+            }
+
+            .header2 ul a span {
+                position: absolute;
+                right: 18em;
+                background-color: #00f3ff;
+                padding: 0.5em;
+                border-radius: 2em;
+                font-weight: 700;
+            }
+
+            .header2 ul a li {
+                margin: 0 1em 0 0;
+                font-size: larger;
+            }
+
+#winknoti {
+    background-color: #f3f3f3;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes example {
+    0% {
+        background-color: #bfb0b0;
+        color: black;
+    }
+
+    50% {
+        background-color: #efcfcf;
+        color: black;
+    }
+
+    100% {
+        background-color: #e1e4e7;
+        color: black;
+    }
+}
+
+
+.header3 {
+    background-color: white;
+    box-shadow: #0e0e0e 1px 1px 5px 0px;
+    margin: 0.5em;
+}
+    .header3 a {
+        padding: 1em;
+        color: #424242;
+    }
+        .header3 a:hover {
+            text-decoration: none;
+            color: #71afeb;
+        }
+
+    .header3 .headerdata {
+        display: flex;
+        flex-direction: row;
+    }
+
+        .header3 .headerdata p {
+            margin: 1em 1em 1em 0;
+        }
+
+        .header3 .headerdata img {
+            width: 3em;
+        }
+
+.header2 i {
+    font-size: 32px;
+    color: #00A693;
+}
+
+.header3 span {
+    padding: 1em;
+    background-color: #5c8577;
+    color: white;
+    font-size: unset;
+}
+    .header3 span#useronline {
+        padding: 1em;
+        background-color: #ffffff;
+        color: black;
+        font-size: unset;
+        margin: 0.2em;
+        width: 15em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+        .header3 span#useronline:hover {
+            white-space: inherit;
+            cursor:pointer;
+        }
+
+        .headerinfo {
+            display: flex;
+            /*    margin: 0.5em;
+*/ flex-direction: row;
+            align-items: center;
+            text-align: center;
+        }
+    .headerinfo #nametitel {
+        color:black;
+    }
+    .headerinfo #posttitel {
+        font-size: 14px;
+    }
+
+    .headerinfo p {
+        padding: 0.2em 2em 0.2em 2em;
+        font-size: 1em;
+    }
+
+    .headerinfo img {
+        display: flex;
+        flex-direction: row;
+        width: 7em;
+        border: 3px solid white;
+    }
+
+.headerSetting #headerSetting1 {
+    padding: 2em;
+    color: white;
+    background-color: #ff7990;
+}
+
+.headerSetting a:hover {
+    border-bottom: 2px solid #6183ff;
+}
+
+.headerSetting #headerSetting2 {
+    padding: 2em;
+    color: white;
+    background-color: #00A693;
+}
+
+.headerSetting #headerSetting3 {
+    padding: 2em;
+    background-color: #71afeb;
+    color: white;
+}
+
+.headerSetting {
+    display: flex;
+    flex-direction: row;
+/*    margin: 0.6em 0 0 0;
+*/}
+
+    .headerSetting i {
+        font-size: 30px;
+    }
+
+    .headerSetting a {
+        text-decoration: none;
+        flex: auto;
+    }
+
+a {
+    text-decoration: none;
+}
+
+.bodypanel {
+    background-color: white;
+    box-shadow: #0e0e0e 1px 1px 5px 0px;
+    margin: 0.5em;
+    width: -webkit-fill-available;
+}
+
+.headerdata:hover span {
+    background-color: #263c3a;
+    cursor: inherit;
+}
+@media only screen and (max-width: 1000px) {
+    .bodypanel {
+        display: flex;
+        flex-direction: column;
+    }
+}
+#textnotifinist {
+    background-color: #f7f7f7;
+}
+
+.textnoti {
+    background-color: #d2ebf5;
+    border-right: 2px solid #605868;
+    padding: 0.5em;
+    margin: 1em 0 0 0;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+}
+.DivCardPanel {
+    box-shadow: 3px 1px 5px #12121294;
+    margin: 0.3em;
+}
+.cardpanel .textnoti i {
+    font-size: 20px;
+    color: #00a6933b;
+    padding: 0 0 0 0.3em;
+}
+.cardpanel .textnoti:hover i {
+    color: black;
+}
+#CardError {
+    border-top: 7px solid green;
+    animation-name: ErrorSucsses;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    flex: auto;
+    text-align: center;
+}
+@keyframes ErrorSucsses {
+    0% {
+        border-top: 8px solid green;
+    }
+
+    50% {
+        border-top: 8px solid #05d105;
+    }
+
+    100% {
+        border-top: 8px solid green;
+    }
+}
+#CardErrorDanjer {
+    flex: 1;
+    border-top: 7px solid #ff0000;
+    animation-name: ErrorDanjer;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    flex: auto;
+}
+
+
+@keyframes ErrorDanjer {
+    0% {
+        border-top: 8px solid #eb0a0a;
+    }
+
+    50% {
+        border-top: 8px solid #fffe07;
+    }
+
+    100% {
+        border-top: 8px solid #ff0707;
+    }
+}
+#CardErrorDanjer2 {
+    border-top: 7px solid #ff0000;
+    flex: auto;
+    animation-name: ErrorDanjer2;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+.CardPanel h2 {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+    .CardPanel h2:hover {
+        white-space: break-spaces;
+    }
+
+
+@keyframes ErrorDanjer2 {
+    0% {
+        border-top: 7px solid #ff0000;
+    }
+
+    50% {
+        border-top: 7px solid #890a0a;
+    }
+    100% {
+        border-top: 7px solid #ff0000;
+    }
+}
+.toolbarStatusface {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    align-items: center;
+    margin: 1em 0 1em 0;
+}
+
+
+.tooltipCar {
+    display: none
+}
+.tooltipT {
+    display: none
+
+}
+.tooltipTable:hover {
+    cursor: pointer;
+}
+.cardE:hover{
+    cursor:pointer;
+}
+.tooltipTable:hover .tooltipT {
+    display: block;
+    position: absolute;
+    background-color: #000000b3;
+    padding: 2em;
+    color: white;
+    border-radius: 1em;
+}
+.cardE:hover .tooltipCar {
+    display: block;
+    position: absolute;
+    background-color: #000000b3;
+    padding: 2em;
+    color: white;
+    border-radius: 1em;
+    z-index:20;
+}
+
+.cardpanel {
+    background-color: white;
+/*    box-shadow: rgb(14, 14, 14) 1px 1px 5px 0px;
+*/    padding: 0.6em;
+    margin: 0.3em;
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+}
+    .cardpanel .headerCard {
+        display: flex;
+        justify-content: center;
+        padding: 0.9em 0 0 0;
+        background-color: #00a693;
+        color: white;
+        align-items: center;
+    }
+    .cardpanel p {
+        font-size: large;
+    }
+    .cardpanel .textnoti:hover {
+        border-right: 4px solid black;
+    }
+.formpanel {
+    background-color: white;
+    box-shadow: rgb(14, 14, 14) 1px 1px 5px 0px;
+    margin: 0.3em;
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    padding: 1.5em;
+}
+.bodyform {
+    display: flex;
+    padding: 1em 0 1em 0;
+    flex-direction: column;
+    margin: 1em;
+}
+    .bodyform div{
+        margin-bottom:1em;
+    }
+    .formpanel .headerform {
+        display: flex;
+        justify-content: center;
+        padding: 0.9em 0 0 0;
+        background-color: #00a693;
+        color: white;
+        align-items: center;
+        font-size: x-large;
+    }
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-right: 7px solid #463e3e;
+}
+
+select {
+    border: 2em;
+    border-right: 3px solid #ece3e3;
+    border-bottom: 3px solid #ece3e3;
+}
+textarea {
+    border: 2em;
+    border-right: 3px solid #ece3e3;
+    border-bottom: 3px solid #ece3e3;
+}
+.bodyform input[type="text"] {
+    border: 2em;
+    border-right: 3px solid #ece3e3;
+    border-bottom: 3px solid #ece3e3;
+}
+    .bodyform input[type="text"]:focus {
+        outline: none;
+        border-right: 5px solid #00000080;
+    }
+.bodyform input[type="number"] {
+    border: 2em;
+    border-right: 3px solid #ece3e3;
+    border-bottom: 3px solid #ece3e3;
+}
+
+    .bodyform input[type="number"]:focus {
+        outline: none;
+        border-right: 5px solid #00000080;
+    }
+
+.bodyF{
+    display:flex;
+
+}
+.cardpanel table tbody tr td,th{
+    text-align:right;
+
+}
+    .cardpanel table tbody tr td i {
+        font-size: 28px
+    }
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+/*tr:nth-child(even) {
+    background-color: #dddddd;
+}*/
+.disabled {
+    background-color: antiquewhite;
+    pointer-events: none;
+}
+#ErrorTD {
+    background-color: #ff0000;
+    color: black;
+}
+#SuccesTD {
+    background-color: #00800073;
+    color: black;
+}
+
+/*panel*/
+.progresdivcar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #efefef; */
+    padding: 2em;
+}
+.progress-bar {
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    height: 70px;
+    margin-bottom: -14px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.barOverflow {
+    overflow: hidden;
+    width: 150px;
+    height: 70px;
+    margin-bottom: -14px;
+}
+
+.bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 15px solid #8fdff7;
+    border-bottom-color: #3366cc;
+    border-right-color: #3366cc;
+}
+.progresdivcar-titel {
+    text-align: center;
+}
+    .progresdivcar-titel p {
+        font-size: medium;
+    }
+
+
+#bodyparcel1, #bodyparcel2, #bodyparcel3, #bodyparcel4, #bodyparcel5, #bodyparcel6, #bodyparcel7, #bodyparcel8 {
+    display: flex;
+    flex-wrap: wrap;
+}
+#alertportrait {
+    display: none;
+    position: fixed;
+    text-align: center;
+    background-color: #00f6ff;
+    padding: 5em;
+    font-size: large;
+    height: -webkit-fill-available;
+    z-index: 1;
+    width: -webkit-fill-available;
+    top:0px;
+}
+    #alertportrait p{
+        color: red;
+        background-color:red;
+    }
+.headerdescription {
+    background-color: #e5cbcb0d;
+    border-bottom: 4px solid #00a693;
+    color: #7a7373;
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+    padding: 1.2em 0 0.5em 0;
+}
+#conecttoserver 
+{
+    text-align: center;
+    background-color: #ccdcff;
+    color: black;
+    padding: 1em;
+    font-size: large;
+}
+#htmluseronline {
+    padding: 1em;
+    background-color: #ffffff;
+    color: black;
+    font-size: unset;
+    border-bottom: 2px solid #7d7777;
+    margin: 0.2em;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+}
+}
+#htmluseronline p{
+    background-color: #849797;
+    font-size: 1.2em;
+    color: #ffe6e6;
+    padding: 0.5em;
+}

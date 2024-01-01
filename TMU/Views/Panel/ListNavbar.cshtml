@@ -1,0 +1,124 @@
+﻿@model Data.TMU.Model.Nav.ListNavbarViewModel
+@inject Core.TMU.Service.ITMUService.INavbar Navbar
+@{
+    ViewData["Title"] = "لیست نوبار";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+<main class="ContentPanel">
+    <form asp-action="ListUser" method="get" id="form">
+
+        <input type="hidden" id="IdActive" name="IdActive" value="none" />
+
+    </form>
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="IconPanel">
+            <a href="/panel/CreatNavbar" type="button" class="IC1"><span class="fe fe-filter fe-12 mr-2"></span>ایجاد منو</a>
+
+        </div>
+        <div class="content">
+            <header>
+                <h2>منو های سایت</h2>
+            </header>
+            <form asp-action="ListNavbar" method="get" id="form">
+
+                <input type="hidden" id="pageid" name="pageid" value="1" />
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="inputEmail4">عنوان</label>
+                        <input type="text" class="form-control" id="inputAddress" value="@ViewBag.filtertitel" name="filtertitel" placeholder="عنوان  را وارد کنید">
+                        <label></label>
+                        <button type="submit" class="btngray">جستجو</button>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+            <div class="linner">
+                <table>
+
+                    <tr>
+                        <th>ردیف</th>
+                        <th>عنوان</th>
+                        <th>لینک</th>
+                        <th>عملیات</th>
+                    </tr>
+                    <form asp-action="DeleteListUser" method="post">
+                    <tbody>
+                            @{
+                                int row = 0;
+                                foreach (var item in Model.ListNavbar)
+                                {
+                                    row++;
+                                <tr>
+
+                                    <td>
+                                            @row
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.TitelNav</strong></p>
+                                    </td>
+                                    <td>
+
+                                        <a href=" @(@item.linkAdres==null||@item.linkAdres=="-"?"":@item.linkAdres)">@(@item.linkAdres==null||@item.linkAdres=="-"?"آدرس ندارد":"کلیک کنید")</a>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="/panel/UpdateNavbar/@item.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                @{
+                                                    if (!Navbar.IsParent(item.Id))
+                                                    {
+                                                    <a class="dropdown-item" href="" onclick="confirmAction(@item.Id)"><i class="fa fa-remove"></i></a>
+                                                    }
+                                                }
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+                            }
+
+
+                    </tbody>
+                    </form>
+
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+       function countpage(pageid)
+       {
+           $("#pageid").val(pageid);
+           $("#form").submit();
+       }
+
+    function confirmAction(id) {
+           let confirmAction = confirm("آیا از حذف اطمینان دارید");
+           if (confirmAction) {
+             window.open("/panel/DeleteNavbar/"+id);
+           } else {
+             alert("حذف لغو شد");
+           }
+         }
+</script>
+

@@ -1,0 +1,93 @@
+﻿@model Data.TMU.Model.Gallery.Gallery
+@inject Core.TMU.Service.ITMUService.IGallery IGallery;
+@using System.Text.Encodings.Web;
+@using Core.TMU.Genarator
+@using Core.TMU.Convertor
+@{
+    ViewData["Title"] = " عکس " + @Model.Titel;
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var image = IGallery.GetImageGallery(@Model.Id);
+}
+
+<link rel="stylesheet" href="~/css/styles.css">
+
+
+<main role="main" class="container m-5">
+    <div class="row">
+        <div class="col-md-8 blog-main ">
+            @*<h3 class="pb-3 mb-4 font-italic border-bottom">
+
+                </h3>*@
+
+            <div class="blog-post">
+                <h2 class="blog-post-title">@System.Net.WebUtility.HtmlEncode(Model.Titel)</h2>
+                <hr>
+                <p class="blog-post-meta">تاریخ:@Model.DateGallery.ToPeString("dddd, dd, MMMM,yyyy")&nbsp&nbsp&nbspبازدید:@Model.View&nbsp&nbsp&nbspنویسنده:@Model.author&nbsp&nbsp&nbspتعداد تصاویر:@image.Count</p>
+                <br />
+               @Html.Raw(Model.Description);
+                <hr />
+                @{
+                    if (image.Count != 0)
+                    {
+
+                        <section class="gallery">
+                            <div class="titel">
+                                <h2>گالری تصاویر</h2>
+                                @*<p>متن متن متن متن متن متن مت نمتنم متن م تن</p>*@
+                            </div>
+                            <div class="row">
+                                @{
+                                    <div class="col1">
+                                        @foreach (var item in image)
+                                        {
+                                           <img src="@(item.PathFile==null?"/Img/default.jpg":"/Img/Gallery/Org/"+item.PathFile)" alt="" id="imggalery" onclick="setimg(this)" style="width: 14em">
+                                        }
+                                    </div>
+                                }
+                                <div class="modal" id="modal">
+                                    <div class="content">
+                                        <div class="modal-content">
+                                            <img src="" alt="" id="imgmodalset">
+                                        </div>
+                                        <div class="modal-button">
+                                            <span onclick="" class="prev">قبلی</span>
+                                            <span onclick="document.getElementById('modal').style.display='none'" class="close">بستن</span>
+                                            <span onclick="slidemodal()" class="next">بعدی</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                    }
+
+                }
+            </div><!-- /.blog-post -->
+        </div><!-- /.blog-main -->
+        <aside class="col-md-4 blog-sidebar">
+            <div class="p-3 mb-3  rounded">
+                <h4 class="font-italic">کلمات کلیدی</h4>
+                <p class="mb-0">
+                    <nav class="blog-pagination">
+                        @{
+                            foreach (var item in SpelitTag.tag(Model.Tag))
+                            {
+                                <a class="btn btn-outline-secondary" href="/MoreGallery?tag=@item">@System.Net.WebUtility.HtmlEncode(item)</a>
+                            }
+                        }
+                    </nav>
+                </p>
+            </div>
+        </aside><!-- /.blog-sidebar -->
+
+
+    </div><!-- /.row -->
+</main>
+
+<script>
+    let indexmodal;
+    function setimg(img) {
+        document.getElementById('imgmodalset').src=img.src;
+        document.getElementById('modal').style.display='flex';
+    }
+</script>

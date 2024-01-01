@@ -1,0 +1,72 @@
+﻿@model Data.TMU.Model.News.ListNewsViewModel
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.INews _news
+@using System.Text.Encodings.Web;
+
+@{
+    ViewData["Title"] = "مقاله ها";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+}
+
+
+
+
+<div class="hedertitelbredcrum">
+    <div class="bredcrum">
+        <span>خانه</span>
+        <span>مقاله</span>
+        <span>سی شارپ</span>
+    </div>
+    @*<h2>تعداد دوره ها(202) </h2>*@
+</div>
+<form asp-action="MoreNews" method="get" id="form">
+    <input type="hidden" name="tag" value="@ViewBag.tag" />
+    <div class="hedertitel" id="titelAllcourse">
+        <div class="innputTitelcourse">
+            <input type="text" name="filtertitel" value="@ViewBag.filtertitel" placeholder="دوره مورد نظر را وارد کنید" />
+            <button>
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<section class="course" id="course">
+
+
+    @{
+        foreach (var item in Model.ListNews)
+        {
+            <a href="/news/@item.IdNews/@UrlEncoder.Default.Encode(item.TitelNews.Replace(" ", "-"))" title="@item.TitelNews">
+                <div class="item">
+                    <img src="~/Img/News/thum/@item.image" alt="@item.TitelNews" />
+                    <div class="ditale">
+                        <h4>@item.TitelNews</h4>
+                        <p >@item.subjectNews</p>
+                        <div class="info">
+                         <span id="mony">  <i class="fa fa-user" aria-hidden="true"></i>@item.author</span>
+                          
+
+                            <span id="clock"><i class="fa fa-eye" aria-hidden="true"></i>@item.CountView</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+
+
+
+</section>
+<script>
+    function countpage(pageid)
+    {
+        $("#pageid").val(pageid);
+        $("#form").submit();
+    }
+
+</script>
+
+

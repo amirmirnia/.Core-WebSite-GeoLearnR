@@ -1,0 +1,113 @@
+﻿@model Data.TMU.Model.News.News
+@inject Core.TMU.Service.ITMUService.INews Inews;
+@using Core.TMU.Genarator
+@using Core.TMU.Convertor
+@using System.Text.Encodings.Web;
+
+
+@{
+    ViewData["Title"] = " مقاله " + @Model.TitelNews;
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var image = Inews.GetImageNews(@Model.IdNews);
+}
+<div class="hedertitel">
+    <h2>@System.Net.WebUtility.HtmlEncode(Model.TitelNews) </h2>
+    @* <a href="/Allcourse"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>مشاهده همه دوره ها</a>*@
+</div>
+<div class="hedertitelbredcrum">
+    <div class="bredcrum">
+        <span>خانه</span>
+        <span>مقالات</span>
+        <span>@Model.TitelNews</span>
+    </div>
+</div>
+
+<main>
+    <section class="news">
+        <div class="article">
+            <article>
+                <figure>
+                    <img src="~/Img/News/Org/@(Inews.GetImageFirstnews(Model.IdNews).PathFile)" title="@Model.TitelNews" />
+                </figure>
+                <p>
+                    @System.Net.WebUtility.HtmlEncode(Model.DescriptionNews);
+                </p>
+            </article>
+            <div class="tag">
+                @{
+                    foreach (var item in SpelitTag.tag(Model.Tags))
+                    {
+                        <a class="btn btn-outline-secondary" href="/MoreNews?tag=@item">@System.Net.WebUtility.HtmlEncode(item)</a>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="moredetali">
+        </div>
+    </section>
+</main>
+@*<main role="main" class="container m-5">
+    <div class="row news">
+    <div class="col-md-6 blog-main ">
+
+    <div class="blog-post">
+    <h2 class="blog-post-title">@System.Net.WebUtility.HtmlEncode(Model.TitelNews)</h2>
+    <p class="blog-post-meta">تاریخ:@Model.DetaNews.ToPeString("dddd, dd, MMMM,yyyy")&nbsp&nbsp&nbspبازدید:@Model.CountView &nbsp&nbsp&nbspنویسنده:@Model.author&nbsp&nbsp&nbspتعداد تصاویر:@image.Count</p>
+
+    @System.Net.WebUtility.HtmlEncode(Model.DescriptionNews);
+    </div><!-- /.blog-post -->
+    </div><!-- /.blog-main -->
+    <aside class="col-md-4 blog-sidebar">
+    <div class="p-3 mb-3 rounded">
+    <h3 class="blog-post-title">کلمات کلیدی</h3>
+    <hr>
+    <p class="mb-0">
+    <nav class="blog-pagination">
+    @{
+    foreach (var item in SpelitTag.tag(Model.Tags))
+    {
+    <a class="btn btn-outline-secondary" href="/MoreNews?tag=@item">@System.Net.WebUtility.HtmlEncode(item)</a>
+    }
+    }
+    </nav>
+    </p>
+    </div>
+    @{
+    if (image.Count != 0)
+    {
+    <h3 class="blog-post-title">تصاویر</h3>
+    <hr>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+    @{
+    int i = 1;
+    foreach (var item in image)
+    {
+
+    <div class="carousel-item @(i==1?"active":"")">
+    <img src="@(item.PathFile==null?"/Img/default.jpg":"/Img/News/thum/"+item.PathFile)" class="d-block w-100" alt="...">
+    </div>
+    i++;
+    }
+    }
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+    }
+
+    }
+
+    </aside><!-- /.blog-sidebar -->
+
+
+    </div><!-- /.row -->
+    </main>*@

@@ -1,0 +1,141 @@
+﻿@model Data.TMU.Model.UpdateregisterViewModel
+@inject Core.TMU.Service.ITMUService.IUser _user
+@inject Core.TMU.Service.ITMUService.IPermision Permision
+
+@{
+    ViewData["Title"] = "میزکار-تنظیمات شخصی";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+<main class="ContentPanel">
+
+    <partial name="panelPartial" />
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>تنظیمات شخصی</h2>
+            </header>
+            <div class="linner">
+                <form asp-action="profilesettings" method="post" enctype="multipart/form-data">
+                    <input asp-for="UserAvatar" type="hidden" />
+                    <input asp-for="CodePerseneli" value="User.Identity.Name" type="hidden" />
+                    <input asp-for="IdCode" type="hidden" />
+                     <input asp-for="post" type="hidden" />
+                    <input asp-for="level" type="hidden" />
+                    @*<input asp-for="CodePerseneli" type="hidden" />*@
+                    <div class="avatar avatar-xl">
+                        <img src="~/Img/Userprofile/@Model.UserAvatar" id="img" alt="@Model.FullName" class="avatar-img rounded-circle">
+                        <div class="form-group mb-3">
+                            <label for="example-fileinput">عکس خود را وارد کنید</label>
+                            <input type="file" name="file" id="imgUp" class="btn btn-outline-secondary m-2">
+                        </div>
+                        <span asp-validation-for="UserAvatar"></span>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 m-1">
+                            <label for="firstname">نام ونام خانوادگی</label>
+                            <input asp-for="FullName" type="text" id="firstname" class="form-control" placeholder="نام ونام خانوادگی">
+                            <span asp-validation-for="FullName"></span>
+                        </div>
+                        <div class="form-group col-md-6 m-1">
+                            <label for="Mobile">تلفن همراه</label>
+                            <input asp-for="Mobile" type="text" id="Mobile" class="form-control" placeholder="موبایل">
+                            <span asp-validation-for="Mobile"></span>
+                        </div>
+                        <div class="form-group col-md-6 m-1">
+                            <label for="inputEmail4">ایمیل</label>
+                            <input asp-for=Email type="email" class="form-control" id="inputEmail4" placeholder="ایمیل">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        @{
+                            if (Permision.CheakPermissionAllow(2, _user.FindUser(User.Identity.Name).Id) == true || Model.IdCode != _user.FindUser(User.Identity.Name).IdCode)
+                            {
+                                //<div class="form-group col-md-6 m-1">
+                                //    <label for="inputEmail4">شماره شناسنامه</label>
+                                //    <input asp-for="CodePerseneli" type="text" class="form-control" id="inputEmail4" placeholder="کد پرسنلی">
+                                //    <span asp-validation-for="CodePerseneli"></span>
+                                //</div>
+                                <div class="form-group col-md-6 m-1">
+                                    <label for="IdCode">کد ملی</label>
+                                    <input asp-for="IdCode" type="text" id="IdCode" class="form-control" placeholder="کد ملی" oninvalid="this.setCustomValidity('لطفا کد ملی را پر کنید')" oninput="this.setCustomValidity('')">
+
+                                </div>
+                            }
+                            else
+                            {
+                                //<div class="form-group col-md-6 m-1">
+                                //    <label for="inputEmail4">کد پرسنلی</label>
+                                //    <input readonly asp-for="CodePerseneli" type="text" class="form-control" id="inputEmail4" placeholder="کد پرسنلی">
+                                //    <span asp-validation-for="CodePerseneli"></span>
+                                //</div>
+                                <div class="form-group col-md-6 m-1">
+                                    <label for="IdCode">کد ملی</label>
+                                    <input readonly asp-for="IdCode" type="text" id="IdCode" class="form-control" placeholder="کد ملی">
+
+                                </div>
+                            }
+                        }
+
+                        @*<div class="form-group col-md-6 m-1">
+                            <label for="inputState5">پست سازمانی</label>
+
+                            @{
+                                if (Permision.CheakPermissionAllow(2, _user.FindUser(User.Identity.Name).Id) == true || ViewBag.isEnabelpost == true)
+                                {
+                                    <select asp-for="post" id="inputState5" asp-items="@(ViewBag.Role as SelectList)" class="form-control">
+                                        <option value="0">پست ندارد</option>
+                                    </select>
+
+                                }
+                                else
+                                {
+                                    <select asp-for="post" disabled id="inputState5" asp-items="@(ViewBag.Role as SelectList)" class="form-control">
+                                        <option value="0">پست ندارد</option>
+                                    </select>
+
+                                }
+                            }
+
+                        </div>*@
+                        <button type="submit" class="btngray">تغیرات</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<script src="~/js/jquery-1.9.1.min.js"></script>
+
+<script>
+
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgUp").change(function () {
+        readURL(this);
+    });
+
+
+</script>
+

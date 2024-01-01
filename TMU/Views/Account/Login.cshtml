@@ -1,0 +1,96 @@
+﻿@model Data.TMU.Model.LoginViewModel
+@using DNTCaptcha.Core
+<title>ورود</title>
+@await Html.PartialAsync("_PanelStyle")
+<link rel="stylesheet" href="~/css/Panel/login.css">
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/chapcha/jquery.unobtrusive-ajax.js"></script>
+
+
+<body class="light rtl" style="overflow-x:hidden">
+
+    <section>
+        <form asp-action="Login" method="post">
+
+
+
+            <div class="rejister">
+
+                <div class="bodyrejister">
+
+
+                    <div class="">
+                        <a href="/"><img src="/Img/More/Loader.png" alt="GeoLearnR"></a>
+                    </div>
+                    @{
+                        if (ViewBag.IsResetpassword == true)
+                        {
+                            <h1 class="h6 mb-3">تغییر پسورد با موفقیت انجام شد</h1>
+                        }
+                    }
+                    <input name="returnUrl" type="hidden" value="@ViewBag.returnUrl">
+                    <div class="formcontrol">
+                        <label><i class="fa fa-id-card" aria-hidden="true"></i></label>
+                        <input asp-for="CodeId" type="text" class="form-control" placeholder="کد ملی را وارد کنید" autofocus="">
+                        <span asp-validation-for="CodeId"></span>
+                    </div>
+                    <div class="formcontrol">
+                        <label><i class="fa fa-key" aria-hidden="true"></i></label>
+                        <div class="d-flex">
+                            <input asp-for="Password" id="myInputPass" type="password" placeholder="پسورد را وارد کنید">
+                            <i class="fa fa-eye" id="fa-eye" onclick=myFunction()></i>
+                        </div>
+                    </div>
+                    <dnt-captcha asp-captcha-generator-max="9000"
+                                 asp-captcha-generator-min="1000"
+                                 asp-captcha-generator-language="Persian"
+                                 asp-captcha-generator-display-mode="ShowDigits"
+                                 asp-use-relative-urls="false"
+                                 asp-placeholder="کد امنیتی را وارد کنید"
+                                 asp-validation-error-message="کد امنیتی را درست وارد کنید"
+                                 asp-font-name="Tahoma"
+                                 asp-font-size="20"
+                                 asp-fore-color="#00000"
+                                 asp-back-color="red"
+                                 asp-text-box-class="text-box single-line form-control col-md-4"
+                                 asp-text-box-template="<div class='input-group col-md-4'><span class='input-group-addon'><span class='glyphicon glyphicon-lock'></span></span>{0}</div>"
+                                 asp-validation-message-class="text-danger"
+                                 asp-refresh-button-class="fa fa-refresh btn-sm"
+                                 asp-show-refresh-button="true"
+                                 asp-dir="rtl"
+                                 asp-use-noise="false" />
+                    <div class="m-3">
+                        <label class="text-center p-2">
+                            <input asp-for="RememberMe" type="checkbox" value="true"> مرا به خاطر بسپار
+                        </label>
+                        <a class="text-center p-2" id="forgetpassword" href="#">فراموشی رمز</a>
+                    </div>
+
+
+                    <input type="submit" value="ورود" />
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </section>
+    <script>
+        function myFunction() {
+          var x = document.getElementById("myInputPass");
+
+          if (x.type === "password") {
+            x.type = "text";
+            document.getElementById("fa-eye").className = "fa fa-eye-slash";
+          } else {
+            x.type = "password";
+            document.getElementById("fa-eye").className = "fa fa-eye";
+          }
+        }
+
+    </script>
+</body>

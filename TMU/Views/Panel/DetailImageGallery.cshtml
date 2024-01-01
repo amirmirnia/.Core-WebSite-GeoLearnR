@@ -1,0 +1,104 @@
+﻿@model List<Data.TMU.Model.Gallery.FileGallery>
+
+@{
+    ViewData["Title"] = "تنظیمات گالری";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<main role="main" class="main-content">
+    <div class="Header-Countainer mt-5">
+        ویرایش
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <form asp-action="DetailImageGallery" method="post" id="form">
+                    <input type="hidden" name="SelectFirst" value="" id="SelectFirst" />
+                    <div class="row align-items-center my-4">
+                       
+                        <div class="col-auto">
+                            <a href="/panel/CreatImageGallery/@ViewBag.ID" class="btn btn-outline-info"><span class="fe fe-plus fe-12 mr-2"></span>ثبت عکس</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @{
+                            if (Model.Count != 0)
+                            {
+                                int i = 0;
+                                foreach (var item in Model)
+                                {
+                                    <input type="hidden" asp-for="@item.Id" />
+                                    <input type="hidden" asp-for="@item.PathFile" />
+                                    <div class="col-auto">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-body text-center p-3">
+                                                <div class="avatar avatar-lg mt-4 w-100">
+                                                    <a href="">
+                                                        <img src="/Img/Gallery/thum/@item.PathFile" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="card-text my-2">
+                                                    <label for="simpleinput">عنوان عکس</label>
+                                                    <input asp-for="@item.TitelFileGallery" type="text" id="simpleinput" placeholder="متن عکس را وارد کنید" class="form-control">
+                                                    <span asp-validation-for="@item.TitelFileGallery"></span>
+                                                </div>
+                                                <div class="custom-control custom-switch">
+                                                    @{
+                                                        if (item.IsFirst == true)
+                                                        {
+                                                            <input type="checkbox" class="custom-control-input" value="True" name="@item.IsFirst" id="@item.Id" onclick="submitchecked(@item.Id)" checked>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" class="custom-control-input" value="True" name="@item.IsFirst" id="@item.Id" onclick="submitchecked(@item.Id)">
+
+                                                        }
+
+                                                        <label class="custom-control-label" for=@item.Id>@(item.IsFirst==true?"به عنوان عکس اول قرار گیرد؟":"به عنوان عکس اول انتخاب شد")</label>
+                                                    }
+                                                </div>
+
+                                                <div class="col-md-12 mx-auto mb-3 mt-2">
+                                                    @{
+                                                        
+                                                        
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" value="@item.Id" name="CheckDelete" class="custom-control-input" id=@i>
+                                                            <label class="custom-control-label" for=@i>حذف</label>
+                                                        </div>
+                                                        i++;
+                                                    }
+                                                </div>
+                                                
+                                            </div> <!-- ./card-text -->
+                                </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="form-row">
+                            <div class="col-md-12 text-center mr-5">
+                                <button class="btn btn-primary" type="submit" id="start_button">تغییرات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div> <!-- .row -->
+
+        </div> <!-- .row -->
+    </div> <!-- .container-fluid -->
+
+    <script>
+        function submitchecked(id_DN) {
+            $("#SelectFirst").val(id_DN)
+            $("#form").submit();
+
+        }
+    </script>
+</main>

@@ -1,0 +1,98 @@
+﻿@model Data.TMU.Model.Page.Page
+@inject Core.TMU.Service.ITMUService.IPage ipage;
+@using Core.TMU.Genarator
+@using Core.TMU.Convertor
+@using System.Text.Encodings.Web;
+
+@{
+    ViewData["Title"] = " " + @Model.TitelPage;
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var image = ipage.GetImagePage(@Model.Id);
+}
+
+<section>
+    <img src="/Img/More/a818c06de7cacaecde49602dd615ed76f222fbda.jpg" class="w-100"/>
+</section>
+
+<main role="main" class="container m-5">
+    <div class="row">
+        <div class="col-md-8 blog-main">
+            @*<h3 class="pb-3 mb-4 font-italic border-bottom">
+
+                </h3>*@
+
+            <div class="blog-post">
+                <h2 class="blog-post-title">@System.Net.WebUtility.HtmlEncode(Model.TitelPage)</h2>
+                <hr>
+                <p class="blog-post-meta">@Model.DetaNews.ToPeString("dddd, dd, MMMM,yyyy")&nbsp&nbsp&nbspبازدید:@Model.CountView&nbsp&nbsp&nbspنویسنده:@Model.author&nbsp&nbsp&nbspتعداد تصاویر:@image.Count</p>
+                <br />
+                @*
+                    <div class="mb-5">
+
+                    </div>*@
+
+                @System.Net.WebUtility.HtmlEncode(Model.Description);
+
+
+            </div><!-- /.blog-post -->
+
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+            <div class="p-3 mb-3 rounded">
+                <h3 class="blog-post-title">کلمات کلیدی</h3>
+                <hr>
+                <p class="mb-0">
+                    <nav class="blog-pagination">
+                        @{
+                            foreach (var item in SpelitTag.tag(Model.tag))
+                            {
+                                <a class="btn btn-outline-secondary" href="/MoreNews?tag=@item">@System.Net.WebUtility.HtmlEncode(item)</a>
+                            }
+
+                        }
+
+                    </nav>
+                </p>
+            </div>
+            @{
+                if (image.Count != 0)
+                {
+                    <h3 class="blog-post-title">تصاویر</h3>
+                    <hr>
+                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @{
+                                int i = 1;
+                                foreach (var item in image)
+                                {
+
+                                    <div class="carousel-item @(i==1?"active":"")">
+                                        <img src="@(item.PathFile==null?"/Img/default.jpg":"/Img/Page/thum/"+item.PathFile)" class="d-block w-100" alt="@item.TitelFilePage">
+                                    </div>
+                                    i++;
+                                }
+                            }
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                }
+
+            }
+
+        </aside><!-- /.blog-sidebar -->
+
+
+    </div><!-- /.row -->
+</main>
+
+

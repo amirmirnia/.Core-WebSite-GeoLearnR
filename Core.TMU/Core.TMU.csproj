@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\AHMirnia\.nuget\packages\cete.dynamicpdf.converter.net\3.19.0\contentFiles\any\any\DPDFConverterService\DynamicPDF.Converter.Service.exe" />
+    <Content Remove="C:\Users\AHMirnia\.nuget\packages\cete.dynamicpdf.converter.net\3.19.0\contentFiles\any\any\DPDFConverterService\DynamicPDF.Converter.Service.exe.config" />
+    <Content Remove="C:\Users\AHMirnia\.nuget\packages\cete.dynamicpdf.converter.net\3.19.0\contentFiles\any\any\DPDFConverterService\ReadMe.txt" />
+    <Content Remove="C:\Users\S.A.H.Mirnia\.nuget\packages\cete.dynamicpdf.converter.net\3.19.0\contentFiles\any\any\DPDFConverterService\DynamicPDF.Converter.Service.exe" />
+    <Content Remove="C:\Users\S.A.H.Mirnia\.nuget\packages\cete.dynamicpdf.converter.net\3.19.0\contentFiles\any\any\DPDFConverterService\DynamicPDF.Converter.Service.exe.config" />
+    <Content Remove="C:\Users\S.A.H.Mirnia\.nuget\packages\cete.dynamicpdf.converter.net\3.19.0\contentFiles\any\any\DPDFConverterService\ReadMe.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data.TMU\Data.TMU.csproj" />
+  </ItemGroup>
+
+</Project>

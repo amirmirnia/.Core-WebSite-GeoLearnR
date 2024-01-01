@@ -1,0 +1,118 @@
+﻿@model Data.TMU.Model.Menu.Menu
+@{
+    ViewData["Title"] = "ایجاد منو";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+<main role="main" class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h2 class="page-title">Form Layout</h2>
+                <p class="text-muted">Demo for form control styles, layout options, and custom components for creating a wide variety of forms.</p>
+                <div class="card-deck">
+                    <div class="card shadow mb-4">
+                        <div class="card-header">
+                            <strong class="card-title">Basic form</strong>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="AddMenu" method="post">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">نام جستجو</label>
+                                    <div class="col-sm-9">
+                                        <input asp-for="NameMenu" type="text" class="form-control" id="inputEmail3" placeholder="نام">
+                                        <span asp-validation-for="NameMenu"></span>
+                                    </div>
+
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="chk1" value="true" id="gridCheck1">
+                                            <label class="form-check-label" for="gridCheck1"> آیا زیر مجموعه اول شود؟ </label>
+                                        </div>
+                                    </div>
+                                    <div id="div" class="form-group col-md-4" style="display: none">
+                                        <label for="inputState"> مجموعه</label>
+                                        <select id="inputState" asp-for="ParentId" asp-items="@(ViewBag.select1 as SelectList)" class="form-control">
+                                        </select>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-9">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="chk2" value="true" id="gridCheck2">
+                                                    <label class="form-check-label" for="gridCheck1"> آیا زیر مجموعه دوم شود؟ </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="div1" class="form-group col-md-4" style="display: none">
+                                        <label for="inputState">مجموعه</label>
+                                        <select id="inputState2" name="ParentId2" class="form-control">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <button type="submit" class="btn btn-primary">ثبت</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+    </div>
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#gridCheck1").click(function () {
+            if ($(this).is(":checked")) {
+                $("#div").show();
+            } else {
+                $("#div").hide();
+            }
+        });
+    });
+
+    $(function () {
+        $("#gridCheck2").click(function () {
+            if ($(this).is(":checked")) {
+                $("#div1").show();
+            } else {
+                $("#div1").hide();
+            }
+        });
+    });
+
+    $("#inputState").change(function () {
+     $("#inputState2").empty();
+     $.getJSON("/Panel/GetSelect2/" + $("#inputState :selected").val(),
+     function (data) {
+     $.each(data,
+     function () {
+     $("#inputState2").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+     });
+
+     });
+     });
+</script>
+@*@section Scrript{
+        <script>
+    $("#inputState").change(function () {
+    $("#inputState2").empty();
+    $.getJSON("/Panel/GetSelect2/" + $("#inputState :selected").val(),
+    function (data) {
+
+    $.each(data,
+    function () {
+    $("#inputState2").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+    });
+
+    });
+    });
+        </script>
+    }*@

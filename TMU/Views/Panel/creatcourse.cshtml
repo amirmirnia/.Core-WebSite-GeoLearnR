@@ -1,0 +1,138 @@
+﻿@model Data.TMU.Model.Course.Course
+@using Core.TMU.Convertor
+@inject Core.TMU.Service.ITMUService.IUser user
+@{
+    ViewData["Title"] = "ایجاد دوره";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<main class="ContentPanel">
+    <partial name="panelPartial" />
+
+    <div class="mainPanel">
+        <div class="content">
+            <header>
+                <h2>مشخصات دوره</h2>
+            </header>
+            <div class="linner">
+                <form asp-action="creatcourse" method="post" enctype="multipart/form-data">
+                    <div class="col-12 col-xl-10">
+                        <input asp-for="author" type="hidden" value="@(User.Identity.Name)">
+                        <input type="hidden" asp-for="Date" value="@DateTime.Now">
+                        <input type="hidden" asp-for="img" value="DefultImage.jpg">
+                        <input type="hidden" asp-for="Status" value=False>
+                        <p class="mb-4">اطلاعات خواسته شده را تکمیل نمایید.</p>
+                        <div class="form-row">
+                            <div class="form-input">
+                                <label for="firstname">نام دوره</label>
+                                <input asp-for="name" type="text" id="firstname" class="form-control">
+                                <span asp-validation-for="name"></span>
+                            </div>
+                            <div class="form-input">
+                                <label for="firstname">عنوان دوره</label>
+                                <input asp-for="Titel" type="text" id="firstname" class="form-control">
+                                <span asp-validation-for="Titel"></span>
+                            </div>
+                            <div class="form-input">
+                                <input type="checkbox" asp-for="Lock" class="lock" value="true">
+                                <label> پرداخت هزینه </label><br>
+                            </div>
+                            <div class="form-input">
+                                <label for="lastname">کلمات کلیدی را با - انتخاب کنید</label>
+                                <input asp-for="Tag" type="text" id="lastname" class="form-control">
+                                <span asp-validation-for="Tag"></span>
+                            </div>
+                            <div class="form-input">
+                                <label for="lastname">قیمت دوره</label>
+                                <input asp-for="price" onchange="price()" onkeyup="price()" type="text" value=0 id="mony" class="form-control">
+                                <span asp-validation-for="price"></span>
+                            </div>
+                            <div class="form-input">
+                                <label for="lastname">ساعت</label>
+                                <input asp-for="Time" type="number" min="0" max="24" class="form-control">
+                                <span asp-validation-for="Time"></span>
+                            </div>
+                            <div class="form-input">
+
+                                <label for="lastname">دقیقه</label>
+                                <input asp-for="minet" type="number" min="0" max="60" class="form-control">
+                                <span asp-validation-for="minet"></span>
+                            </div>
+                            <div class="form-input">
+                                <label for="lastname">ثانیه</label>
+                                <input asp-for="secend" type="number" min="0" max="60" class="form-control">
+                                <span asp-validation-for="secend"></span>
+                            </div>
+                            <div class="form-input">
+                                <label for="#inputState2">سطح دوره</label>
+                                <select asp-for="level">
+                                    <option value="مبتدی">مبتدی</option>
+                                    <option value="متوسط">متوسط</option>
+                                    <option value="پیشرفته">پیشرفته</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <hr class="my-4">
+
+                        <p>متن مورد نیاز خود را در ویرایشگر زیر وارد کنید</p>
+                        <!-- Create the editor container -->
+                        <textarea asp-for="Description" id="editor" class="form-control" cols="7" rows="10"></textarea>
+                        <span asp-validation-for="Description"></span>
+
+                        <hr class="my-4">
+                        <div class="form-group">
+                            <div class="form-group mb-3">
+                                <label for="customFile">فایل عکس را انتخاب کنید</label>
+                                <div class="custom-file">
+                                    <input name="fileimg" type="file" multiple class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">انتخاب فایل</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center mb-5">
+                                <div class="avatar avatar-xl w-100">
+                                    <img src="" class="imagecorsepanel" alt="" id="img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="submit" class="btngray">ثبت دوره</button>
+                            </div>
+                        </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+</main>
+
+<script src="~/js/jquery-1.9.1.min.js"></script>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#customFile").change(function () {
+        readURL(this);
+    });
+
+
+</script>
